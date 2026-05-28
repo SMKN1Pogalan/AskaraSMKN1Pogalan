@@ -266,11 +266,14 @@
 
         <!-- Hint login credentials helper -->
         <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
-          <p class="font-bold mb-1"><i class="fas fa-lightbulb"></i> Bantuan Demo Login:</p>
+          <p class="font-bold mb-1"><i class="fas fa-lightbulb"></i> Bantuan Kredensial Login:</p>
           <ul class="list-disc pl-4 space-y-0.5">
-            <li>Administrator: <code class="font-semibold text-maroon-900">admin</code> / <code class="font-semibold text-maroon-900">admin</code></li>
-            <li>Kepala Sekolah: <code class="font-semibold text-maroon-900">kepsek</code> / <code class="font-semibold text-maroon-900">kepsek</code></li>
-            <li>Staf/Waka/Kakomli/Bendahara/Koordinator: <code class="font-semibold text-maroon-900">user</code> / <code class="font-semibold text-maroon-900">user</code></li>
+            <li>Administrator: <code class="font-semibold text-maroon-900">adminnovi</code> / <code class="font-semibold text-maroon-900">11223344</code></li>
+            <li>Kepala Sekolah: <code class="font-semibold text-maroon-900">kepsek</code> / <code class="font-semibold text-maroon-900">ayrana2812</code></li>
+            <li>Waka: <code class="font-semibold text-maroon-900">wakasek</code> / <code class="font-semibold text-maroon-900">5678</code></li>
+            <li>Kakomli: <code class="font-semibold text-maroon-900">kakomli</code> / <code class="font-semibold text-maroon-900">1234</code></li>
+            <li>Bendahara: <code class="font-semibold text-maroon-900">bendahara</code> / <code class="font-semibold text-maroon-900">3579</code></li>
+            <li>Koord & Unit: <code class="font-semibold text-maroon-900">koordunit</code> / <code class="font-semibold text-maroon-900">2468</code></li>
           </ul>
         </div>
 
@@ -1242,16 +1245,22 @@
       let success = false;
       let specificRole = category;
 
-      // Demo Simple Login Scheme
-      if (category === 'Administrator' && username === 'admin' && password === 'admin') {
+      // Login Scheme Based on Specific Data
+      if (category === 'Kepala Sekolah' && username === 'kepsek' && password === 'ayrana2812') {
         success = true;
-      } else if (category === 'Kepala Sekolah' && username === 'kepsek' && password === 'kepsek') {
+      } else if (category === 'Waka' && username === 'wakasek' && password === '5678') {
         success = true;
-      } else if ((category === 'Waka' || category === 'Kakomli' || category === 'Koordinator' || category === 'Bendahara') && username === 'user' && password === 'user') {
+        specificRole = document.getElementById('login-specific-role').value;
+      } else if (category === 'Kakomli' && username === 'kakomli' && password === '1234') {
         success = true;
-        if (category === 'Waka' || category === 'Kakomli' || category === 'Koordinator') {
-          specificRole = document.getElementById('login-specific-role').value;
-        }
+        specificRole = document.getElementById('login-specific-role').value;
+      } else if (category === 'Bendahara' && username === 'bendahara' && password === '3579') {
+        success = true;
+      } else if (category === 'Koordinator' && username === 'koordunit' && password === '2468') {
+        success = true;
+        specificRole = document.getElementById('login-specific-role').value;
+      } else if (category === 'Administrator' && username === 'adminnovi' && password === '11223344') {
+        success = true;
       } else if (username === 'demo' && password === 'demo') {
         // Fallback for easy evaluator review
         success = true;
@@ -1267,7 +1276,7 @@
         showToast(`Selamat datang, ${specificRole}!`, 'success');
         setupDashboardForUser();
       } else {
-        showToast('Kredensial salah! Silakan coba lagi.', 'error');
+        showToast('Kredensial salah! Silakan periksa Username dan Password Anda.', 'error');
       }
     }
 
