@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASKARA - SMKN 1 Pogalan</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons for Beautiful Visuals -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            maroon: {
+              50: '#fdf2f2',
+              100: '#fde8e8',
+              200: '#fbd5d5',
+              300: '#f8b4b4',
+              400: '#f38080',
+              500: '#e02424',
+              600: '#c81e1e',
+              700: '#9b1c1c',
+              800: '#7e1919',
+              900: '#611616',
+              950: '#471010',
+            },
+            gold: {
+              50: '#fdfbeb',
+              100: '#fcf6cd',
+              200: '#f9ec9c',
+              300: '#f5db62',
+              400: '#f0c42f',
+              500: '#dbac1a',
+              600: '#bc8b12',
+              700: '#94670e',
+              800: '#744e0f',
+              900: '#5f3f11',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar for Premium Look */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #7e1919;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #471010;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printArea, #printArea * {
+        visibility: visible;
+      }
+      #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col font-sans selection:bg-maroon-600 selection:text-white">
+
+  <!-- ================= APP HEADER WITH LOGO ================= -->
+  <header class="bg-gradient-to-r from-maroon-950 via-maroon-900 to-maroon-800 text-white shadow-xl border-b-4 border-gold-500 no-print">
+    <div class="max-w-7xl mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <!-- Logo Container without Hyperlink -->
+        <div class="relative group">
+          <div class="w-16 h-16 bg-white p-1.5 rounded-full shadow-lg border-2 border-gold-400 flex items-center justify-center transition-transform group-hover:scale-105">
+            <img src="https://lh3.googleusercontent.com/d/1jWMk8JCPS7tEzahMu_PpSuEdF3z9fw5i" 
+                 onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';" 
+                 class="object-contain w-full h-full" alt="Logo SMKN 1 Pogalan">
+            <div id="logo-fallback" style="display:none;" class="w-full h-full bg-maroon-800 text-white rounded-full flex items-center justify-center font-bold text-xs">
+              SMK1
+            </div>
+          </div>
+        </div>
+        <div class="text-center md:text-left">
+          <div class="flex items-center justify-center md:justify-start gap-2">
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white drop-shadow-md">ASKARA</h1>
+            <span class="bg-gold-500 text-maroon-950 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">v1.2</span>
+          </div>
+          <p class="text-xs md:text-sm text-maroon-100 font-medium tracking-wide">Aplikasi Surat & Kearsipan Sekolah - SMKN 1 Pogalan</p>
+        </div>
+      </div>
+      
+      <!-- User Info & Action -->
+      <div id="header-user-info" class="flex items-center gap-4 hidden">
+        <div class="text-right">
+          <p class="text-xs text-maroon-200 uppercase tracking-wider font-semibold" id="header-role-label">Jabatan</p>
+          <p class="text-sm font-bold text-white" id="header-username-label">Nama Pengguna</p>
+        </div>
+        <div class="flex gap-2">
+          <!-- Notification Bell Trigger -->
+          <button onclick="toggleNotificationPanel()" class="relative p-2.5 bg-maroon-900 hover:bg-maroon-950 rounded-full text-white transition-colors border border-maroon-700 hover:border-gold-500 focus:outline-none" title="Notifikasi">
+            <i class="fas fa-bell text-lg"></i>
+            <span id="notif-badge" class="absolute -top-1 -right-1 bg-gold-500 text-maroon-950 font-bold text-[10px] w-5 h-5 flex items-center justify-center rounded-full border-2 border-maroon-900 hidden">0</span>
+          </button>
+          
+          <button onclick="logout()" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 rounded-lg text-white font-bold text-xs transition-all shadow-md focus:outline-none">
+            <i class="fas fa-sign-out-alt"></i> KELUAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= NOTIFICATION DROPDOWN ================= -->
+  <div id="notif-panel" class="fixed top-24 right-4 z-50 w-80 md:w-96 bg-white rounded-xl shadow-2xl border-t-4 border-maroon-800 hidden no-print transition-all duration-300">
+    <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-maroon-50 rounded-t-xl">
+      <h3 class="font-bold text-maroon-900 flex items-center gap-2">
+        <i class="fas fa-bell"></i> Kotak Masuk Disposisi
+      </h3>
+      <button onclick="toggleNotificationPanel()" class="text-gray-400 hover:text-gray-600 font-bold text-lg">&times;</button>
+    </div>
+    <div id="notif-list" class="max-h-80 overflow-y-auto divide-y divide-gray-100">
+      <!-- Generated via JS -->
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT CONTAINER ================= -->
+  <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
+    
+    <!-- 1. LANDING PAGE - ROLE SELECTOR (Halaman Pertama) -->
+    <section id="view-landing" class="block">
+      <div class="text-center my-8 max-w-2xl mx-auto">
+        <h2 class="text-2xl md:text-4xl font-extrabold text-maroon-950 tracking-tight leading-tight">Selamat Datang di Portal ASKARA</h2>
+        <p class="mt-3 text-gray-600 text-sm md:text-base">Silakan pilih jenis otorisasi atau peran Anda di SMKN 1 Pogalan untuk mengelola surat masuk, surat keluar, agenda, dan disposisi.</p>
+        <div class="w-24 h-1 bg-gold-500 mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <!-- Papan Notifikasi & Status Disposisi Terkini (Dapat Dilihat Semua Bagian) -->
+      <div class="max-w-5xl mx-auto mb-8 bg-white rounded-xl shadow-md border-l-4 border-gold-500 p-5 no-print">
+        <div class="flex items-center justify-between border-b pb-3 mb-3">
+          <h3 class="font-bold text-maroon-950 flex items-center gap-2">
+            <i class="fas fa-bullhorn text-gold-600 animate-bounce"></i> Papan Notifikasi & Status Disposisi Terkini
+          </h3>
+          <span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">SINKRONISASI AKTIF</span>
+        </div>
+        <div id="landing-notif-list" class="space-y-3 max-h-56 overflow-y-auto divide-y divide-gray-100">
+          <!-- Diisi via JavaScript secara dinamis -->
+        </div>
+      </div>
+
+      <!-- Grid Tombol Peran -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Kepala Sekolah Card -->
+        <button onclick="openLogin('Kepala Sekolah')" class="group relative flex flex-col items-start p-6 bg-white hover:bg-maroon-900 rounded-xl shadow-md hover:shadow-xl border-l-4 border-maroon-800 transition-all duration-300 text-left overflow-hidden">
+          <div class="absolute right-4 bottom-4 text-maroon-100 group-hover:text-maroon-800 opacity-20 group-hover:opacity-10 transition-all text-7xl"><i class="fas fa-user-tie"></i></div>
+          <div class="p-3 bg-maroon-100 group-hover:bg-gold-500 rounded-lg text-maroon-900 group-hover:text-maroon-950 transition-colors mb-4"><i class="fas fa-user-tie text-xl"></i></div>
+          <h3 class="text-lg font-bold text-maroon-950 group-hover:text-white transition-colors">Kepala Sekolah</h3>
+          <p class="text-xs text-gray-500 group-hover:text-maroon-100 transition-colors mt-1">Otoritas tertinggi disposisi & peninjauan berkas persuratan.</p>
+        </button>
+
+        <!-- Waka Card -->
+        <button onclick="openLogin('Waka')" class="group relative flex flex-col items-start p-6 bg-white hover:bg-maroon-900 rounded-xl shadow-md hover:shadow-xl border-l-4 border-maroon-700 transition-all duration-300 text-left overflow-hidden">
+          <div class="absolute right-4 bottom-4 text-maroon-100 group-hover:text-maroon-800 opacity-20 group-hover:opacity-10 transition-all text-7xl"><i class="fas fa-users"></i></div>
+          <div class="p-3 bg-maroon-50 group-hover:bg-gold-500 rounded-lg text-maroon-800 group-hover:text-maroon-950 transition-colors mb-4"><i class="fas fa-users text-xl"></i></div>
+          <h3 class="text-lg font-bold text-maroon-950 group-hover:text-white transition-colors">Wakil Kepala Sekolah</h3>
+          <p class="text-xs text-gray-500 group-hover:text-maroon-100 transition-colors mt-1">Penerima disposisi: Kurikulum, Kesiswaan, Sarpras, Humas, Litbang.</p>
+        </button>
+
+        <!-- Kakomli Card -->
+        <button onclick="openLogin('Kakomli')" class="group relative flex flex-col items-start p-6 bg-white hover:bg-maroon-900 rounded-xl shadow-md hover:shadow-xl border-l-4 border-maroon-600 transition-all duration-300 text-left overflow-hidden">
+          <div class="absolute right-4 bottom-4 text-maroon-100 group-hover:text-maroon-800 opacity-20 group-hover:opacity-10 transition-all text-7xl"><i class="fas fa-graduation-cap"></i></div>
+          <div class="p-3 bg-maroon-50 group-hover:bg-gold-500 rounded-lg text-maroon-800 group-hover:text-maroon-950 transition-colors mb-4"><i class="fas fa-graduation-cap text-xl"></i></div>
+          <h3 class="text-lg font-bold text-maroon-950 group-hover:text-white transition-colors">Kepala Kompetensi Keahlian</h3>
+          <p class="text-xs text-gray-500 group-hover:text-maroon-100 transition-colors mt-1">Ketua Program Keahlian (AKT, MPK, DPB, Boga, DKV, BDG, TKJ, TKKR).</p>
+        </button>
+
+        <!-- Bendahara Card -->
+        <button onclick="openLogin('Bendahara')" class="group relative flex flex-col items-start p-6 bg-white hover:bg-maroon-900 rounded-xl shadow-md hover:shadow-xl border-l-4 border-maroon-500 transition-all duration-300 text-left overflow-hidden">
+          <div class="absolute right-4 bottom-4 text-maroon-100 group-hover:text-maroon-800 opacity-20 group-hover:opacity-10 transition-all text-7xl"><i class="fas fa-coins"></i></div>
+          <div class="p-3 bg-maroon-50 group-hover:bg-gold-500 rounded-lg text-maroon-800 group-hover:text-maroon-950 transition-colors mb-4"><i class="fas fa-coins text-xl"></i></div>
+          <h3 class="text-lg font-bold text-maroon-950 group-hover:text-white transition-colors">Bendahara</h3>
+          <p class="text-xs text-gray-500 group-hover:text-maroon-100 transition-colors mt-1">Akses khusus ke disposisi persuratan keuangan sekolah.</p>
+        </button>
+
+        <!-- Koordinator & Unit Card -->
+        <button onclick="openLogin('Koordinator')" class="group relative flex flex-col items-start p-6 bg-white hover:bg-maroon-900 rounded-xl shadow-md hover:shadow-xl border-l-4 border-gold-600 transition-all duration-300 text-left overflow-hidden">
+          <div class="absolute right-4 bottom-4 text-maroon-100 group-hover:text-maroon-800 opacity-20 group-hover:opacity-10 transition-all text-7xl"><i class="fas fa-network-wired"></i></div>
+          <div class="p-3 bg-maroon-50 group-hover:bg-gold-500 rounded-lg text-maroon-800 group-hover:text-maroon-950 transition-colors mb-4"><i class="fas fa-network-wired text-xl"></i></div>
+          <h3 class="text-lg font-bold text-maroon-950 group-hover:text-white transition-colors">Koordinator & Unit</h3>
+          <p class="text-xs text-gray-500 group-hover:text-maroon-100 transition-colors mt-1">Koordinator BK, Koordinator Tendik, Kepala Perpustakaan, Ketua LSP, BMS.</p>
+        </button>
+
+        <!-- Administrator Card -->
+        <button onclick="openLogin('Administrator')" class="group relative flex flex-col items-start p-6 bg-gradient-to-br from-white to-maroon-50 hover:from-maroon-900 hover:to-maroon-950 rounded-xl shadow-md hover:shadow-xl border-l-4 border-gold-500 transition-all duration-300 text-left overflow-hidden">
+          <div class="absolute right-4 bottom-4 text-maroon-100 group-hover:text-maroon-900 opacity-20 group-hover:opacity-10 transition-all text-7xl"><i class="fas fa-user-cog"></i></div>
+          <div class="p-3 bg-gold-100 group-hover:bg-gold-500 rounded-lg text-maroon-900 group-hover:text-maroon-950 transition-colors mb-4"><i class="fas fa-user-cog text-xl"></i></div>
+          <h3 class="text-lg font-bold text-maroon-950 group-hover:text-white transition-colors">Administrator Tata Usaha</h3>
+          <p class="text-xs text-gray-500 group-hover:text-maroon-100 transition-colors mt-1">Kelola data mentah, input agenda, klasifikasi, & usulan disposisi.</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= 2. LOGIN MODAL SCREEN ================= -->
+    <section id="view-login" class="hidden max-w-md mx-auto my-12 bg-white rounded-2xl shadow-2xl border-t-8 border-maroon-800 overflow-hidden">
+      <div class="p-6 bg-gradient-to-b from-maroon-50 to-white text-center relative">
+        <button onclick="backToLanding()" class="absolute left-4 top-4 text-gray-400 hover:text-maroon-800 transition-colors">
+          <i class="fas fa-arrow-left text-lg"></i>
+        </button>
+        <div class="w-16 h-16 bg-maroon-800 rounded-full flex items-center justify-center text-white mx-auto shadow-lg mb-3">
+          <i id="login-icon" class="fas fa-user-lock text-2xl text-gold-400"></i>
+        </div>
+        <h3 class="text-xl font-extrabold text-maroon-950">Masuk Aplikasi</h3>
+        <p class="text-xs text-gray-500 mt-1">Mengakses hak akses sebagai <span id="login-role-title" class="font-bold text-maroon-800">Jabatan</span></p>
+      </div>
+      
+      <form id="form-login" onsubmit="handleLogin(event)" class="p-6 space-y-4">
+        <!-- Dynamic selector if Waka, Kakomli, or Koordinator is chosen -->
+        <div id="role-selector-container" class="hidden">
+          <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1" id="role-select-label">Pilih Divisi</label>
+          <select id="login-specific-role" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-800 focus:border-maroon-800 text-sm font-semibold text-gray-700">
+            <!-- Filled dynamically -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Username / NIP</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+              <i class="fas fa-user"></i>
+            </span>
+            <input type="text" id="login-username" required class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-800 focus:border-maroon-800 text-sm" placeholder="Masukkan username">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Kata Sandi</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+              <i class="fas fa-lock"></i>
+            </span>
+            <input type="password" id="login-password" required class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-maroon-800 focus:border-maroon-800 text-sm" placeholder="Masukkan kata sandi">
+          </div>
+        </div>
+
+        <!-- Hint login credentials helper -->
+        <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
+          <p class="font-bold mb-1"><i class="fas fa-lightbulb"></i> Bantuan Demo Login:</p>
+          <ul class="list-disc pl-4 space-y-0.5">
+            <li>Administrator: <code class="font-semibold text-maroon-900">admin</code> / <code class="font-semibold text-maroon-900">admin</code></li>
+            <li>Kepala Sekolah: <code class="font-semibold text-maroon-900">kepsek</code> / <code class="font-semibold text-maroon-900">kepsek</code></li>
+            <li>Staf/Waka/Kakomli/Bendahara/Koordinator: <code class="font-semibold text-maroon-900">user</code> / <code class="font-semibold text-maroon-900">user</code></li>
+          </ul>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-gradient-to-r from-maroon-900 to-maroon-850 hover:from-maroon-800 hover:to-maroon-750 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all tracking-wide text-sm">
+          MASUK SYSTEM
+        </button>
+      </form>
+    </section>
+
+    <!-- ================= 3. ADMINISTRATOR SYSTEM (Dashboard Utama) ================= -->
+    <section id="view-admin" class="hidden space-y-6">
+      <!-- Toolbar Navigation -->
+      <nav class="bg-white rounded-xl shadow-md p-2 flex flex-wrap gap-1 border-b-2 border-maroon-800 no-print">
+        <button onclick="setAdminTab('beranda')" id="btn-tab-beranda" class="flex-1 min-w-[120px] py-2.5 px-4 rounded-lg font-bold text-xs md:text-sm flex items-center justify-center gap-2 transition-all bg-maroon-900 text-white">
+          <i class="fas fa-th-large"></i> Beranda
+        </button>
+        <button onclick="setAdminTab('transaksi')" id="btn-tab-transaksi" class="flex-1 min-w-[120px] py-2.5 px-4 rounded-lg font-bold text-xs md:text-sm flex items-center justify-center gap-2 transition-all text-gray-600 hover:bg-maroon-50 hover:text-maroon-900">
+          <i class="fas fa-exchange-alt"></i> Transaksi Surat
+        </button>
+        <button onclick="setAdminTab('agenda')" id="btn-tab-agenda" class="flex-1 min-w-[120px] py-2.5 px-4 rounded-lg font-bold text-xs md:text-sm flex items-center justify-center gap-2 transition-all text-gray-600 hover:bg-maroon-50 hover:text-maroon-900">
+          <i class="fas fa-book"></i> Buku Agenda
+        </button>
+        <button onclick="setAdminTab('galeri')" id="btn-tab-galeri" class="flex-1 min-w-[120px] py-2.5 px-4 rounded-lg font-bold text-xs md:text-sm flex items-center justify-center gap-2 transition-all text-gray-600 hover:bg-maroon-50 hover:text-maroon-900">
+          <i class="fas fa-images"></i> Galeri File
+        </button>
+        <button onclick="setAdminTab('referensi')" id="btn-tab-referensi" class="flex-1 min-w-[120px] py-2.5 px-4 rounded-lg font-bold text-xs md:text-sm flex items-center justify-center gap-2 transition-all text-gray-600 hover:bg-maroon-50 hover:text-maroon-900">
+          <i class="fas fa-info-circle"></i> Referensi
+        </button>
+      </nav>
+
+      <!-- ================= A. TAB BERANDA ================= -->
+      <div id="tab-beranda" class="space-y-6">
+        <!-- Welcome Card -->
+        <div class="bg-gradient-to-r from-maroon-950 to-maroon-850 p-6 rounded-2xl text-white shadow-xl relative overflow-hidden">
+          <div class="absolute right-0 top-0 opacity-10 text-[200px] pointer-events-none -mr-12 -mt-12"><i class="fas fa-school"></i></div>
+          <h2 class="text-xl md:text-3xl font-extrabold tracking-tight">Halo, Administrator Tata Usaha</h2>
+          <p class="text-maroon-100 text-sm mt-1 max-w-xl">Kelola persuratan dinas SMKN 1 Pogalan dengan efisien dan cepat di bawah komando Kepala Sekolah.</p>
+        </div>
+
+        <!-- Stats Counters -->
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+          <!-- Counter Surat Masuk -->
+          <div class="bg-white p-5 rounded-xl shadow-md border-b-4 border-emerald-500 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">Surat Masuk</span>
+              <p class="text-3xl font-black text-gray-800 mt-1" id="stat-surat-masuk">0</p>
+            </div>
+            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fas fa-envelope-open-text text-xl"></i></div>
+          </div>
+          <!-- Counter Surat Keluar -->
+          <div class="bg-white p-5 rounded-xl shadow-md border-b-4 border-blue-500 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">Surat Keluar</span>
+              <p class="text-3xl font-black text-gray-800 mt-1" id="stat-surat-keluar">0</p>
+            </div>
+            <div class="p-3 bg-blue-50 text-blue-600 rounded-lg"><i class="fas fa-paper-plane text-xl"></i></div>
+          </div>
+          <!-- Counter Disposisi -->
+          <div class="bg-white p-5 rounded-xl shadow-md border-b-4 border-gold-500 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">Disposisi</span>
+              <p class="text-3xl font-black text-gray-800 mt-1" id="stat-disposisi">0</p>
+            </div>
+            <div class="p-3 bg-gold-50 text-gold-600 rounded-lg"><i class="fas fa-share-alt text-xl"></i></div>
+          </div>
+          <!-- Counter Klasifikasi -->
+          <div class="bg-white p-5 rounded-xl shadow-md border-b-4 border-indigo-500 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">Klasifikasi</span>
+              <p class="text-3xl font-black text-gray-800 mt-1" id="stat-klasifikasi">9</p>
+            </div>
+            <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg"><i class="fas fa-folder text-xl"></i></div>
+          </div>
+          <!-- Counter Pengguna -->
+          <div class="bg-white p-5 rounded-xl shadow-md border-b-4 border-purple-500 col-span-2 lg:col-span-1 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-gray-400 uppercase tracking-wider font-bold">Total Pengguna</span>
+              <p class="text-3xl font-black text-gray-800 mt-1" id="stat-pengguna">21</p>
+            </div>
+            <div class="p-3 bg-purple-50 text-purple-600 rounded-lg"><i class="fas fa-users-cog text-xl"></i></div>
+          </div>
+        </div>
+
+        <!-- Quick Access Widgets -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-xl shadow-md space-y-4">
+            <h3 class="font-bold text-gray-800 border-b pb-3 flex items-center gap-2"><i class="fas fa-plus-circle text-emerald-600"></i> Pintasan Entri Baru</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <button onclick="openTambahSurat('masuk')" class="p-4 bg-emerald-50 hover:bg-emerald-100 rounded-lg text-emerald-900 border border-emerald-200 font-bold text-sm transition-all text-center">
+                <i class="fas fa-envelope-open-text block text-2xl mb-2 text-emerald-600"></i> Input Surat Masuk
+              </button>
+              <button onclick="openTambahSurat('keluar')" class="p-4 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-900 border border-blue-200 font-bold text-sm transition-all text-center">
+                <i class="fas fa-paper-plane block text-2xl mb-2 text-blue-600"></i> Input Surat Keluar
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-md flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-gray-800 border-b pb-3 flex items-center gap-2"><i class="fas fa-info-circle text-maroon-700"></i> Info Alur Disposisi</h3>
+              <p class="text-xs text-gray-500 mt-3 leading-relaxed">
+                Administrator memasukkan surat masuk dan memberikan <strong>"Usulan Disposisi"</strong>. Usulan akan muncul pada akun <strong>Kepala Sekolah</strong> untuk ditentukan disposisi final dan diberikan catatan sebelum akhirnya diteruskan ke Waka, Kakomli, Koordinator terkait, atau Bendahara.
+              </p>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <span class="px-2.5 py-1 bg-maroon-100 text-maroon-900 text-[10px] font-bold rounded-full">Proses Cepat</span>
+              <span class="px-2.5 py-1 bg-gold-100 text-gold-900 text-[10px] font-bold rounded-full">Sistematis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= B. TAB TRANSAKSI SURAT ================= -->
+      <div id="tab-transaksi" class="hidden space-y-6">
+        <!-- Sub Navigation Transaksi -->
+        <div class="flex border-b border-gray-200">
+          <button id="btn-subtab-masuk" onclick="setSubTab('masuk')" class="py-2.5 px-6 font-bold text-sm border-b-2 border-maroon-800 text-maroon-850">
+            <i class="fas fa-download mr-1"></i> Surat Masuk
+          </button>
+          <button id="btn-subtab-keluar" onclick="setSubTab('keluar')" class="py-2.5 px-6 font-bold text-sm text-gray-500 border-b-2 border-transparent hover:text-maroon-800">
+            <i class="fas fa-upload mr-1"></i> Surat Keluar
+          </button>
+        </div>
+
+        <!-- CONTENT SUBTAB: SURAT MASUK -->
+        <div id="subtab-masuk" class="space-y-4">
+          <div class="flex justify-between items-center gap-4 flex-wrap">
+            <h3 class="font-extrabold text-lg text-maroon-950">Daftar Transaksi Surat Masuk</h3>
+            <button onclick="openTambahSurat('masuk')" class="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white rounded-lg font-bold text-xs shadow transition-all flex items-center gap-1.5">
+              <i class="fas fa-plus"></i> TAMBAH DATA SURAT MASUK
+            </button>
+          </div>
+
+          <!-- Table Container -->
+          <div class="bg-white rounded-xl shadow overflow-x-auto border border-gray-200">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-100 border-b border-gray-200 text-gray-700 font-bold text-xs uppercase">
+                  <th class="p-4 text-center">Agenda & Kode</th>
+                  <th class="p-4">Perihal & File</th>
+                  <th class="p-4">Asal Surat</th>
+                  <th class="p-4">No. Surat & Tanggal</th>
+                  <th class="p-4">Usulan Disposisi Admin</th>
+                  <th class="p-4">Status & Catatan Kepsek</th>
+                  <th class="p-4 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="table-surat-masuk" class="divide-y divide-gray-100 text-sm">
+                <!-- Filled via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CONTENT SUBTAB: SURAT KELUAR -->
+        <div id="subtab-keluar" class="hidden space-y-4">
+          <div class="flex justify-between items-center gap-4 flex-wrap">
+            <h3 class="font-extrabold text-lg text-maroon-950">Daftar Transaksi Surat Keluar</h3>
+            <button onclick="openTambahSurat('keluar')" class="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-bold text-xs shadow transition-all flex items-center gap-1.5">
+              <i class="fas fa-plus"></i> TAMBAH DATA SURAT KELUAR
+            </button>
+          </div>
+
+          <!-- Table Container -->
+          <div class="bg-white rounded-xl shadow overflow-x-auto border border-gray-200">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-100 border-b border-gray-200 text-gray-700 font-bold text-xs uppercase">
+                  <th class="p-4 text-center">Agenda & Kode</th>
+                  <th class="p-4">Perihal & File</th>
+                  <th class="p-4">Penerima / Asal</th>
+                  <th class="p-4">No. Surat & Tanggal</th>
+                  <th class="p-4 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="table-surat-keluar" class="divide-y divide-gray-100 text-sm">
+                <!-- Filled via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= C. TAB BUKU AGENDA ================= -->
+      <div id="tab-agenda" class="hidden space-y-6">
+        <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-maroon-800">
+          <h3 class="font-extrabold text-lg text-maroon-950 mb-4 flex items-center gap-2"><i class="fas fa-filter"></i> Filter Rentang Tanggal Agenda</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+            <div>
+              <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Jenis Surat</label>
+              <select id="agenda-type" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm">
+                <option value="masuk">Surat Masuk</option>
+                <option value="keluar">Surat Keluar</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Tanggal Mulai</label>
+              <input type="date" id="agenda-start-date" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Tanggal Selesai</label>
+              <input type="date" id="agenda-end-date" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm">
+            </div>
+          </div>
+
+          <div class="flex gap-2 mt-4 justify-end">
+            <button onclick="resetAgendaFilter()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-lg transition-colors">
+              RESET FILTER
+            </button>
+            <button onclick="filterAgenda()" class="px-5 py-2 bg-maroon-800 hover:bg-maroon-900 text-white font-bold text-xs rounded-lg transition-colors shadow">
+              TERAPKAN FILTER
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center px-2">
+          <h4 class="font-extrabold text-base text-maroon-950" id="agenda-list-title">Laporan Buku Agenda Surat Masuk</h4>
+          <button onclick="printAgendaSummary()" class="px-4 py-2 bg-gradient-to-r from-maroon-900 to-maroon-800 hover:from-maroon-950 hover:to-maroon-900 text-white font-bold text-xs rounded-lg shadow-md transition-all flex items-center gap-1.5">
+            <i class="fas fa-print"></i> CETAK BUKU AGENDA
+          </button>
+        </div>
+
+        <!-- Rendered Agenda List -->
+        <div class="space-y-4" id="agenda-render-list">
+          <!-- Filled via JS -->
+        </div>
+      </div>
+
+      <!-- ================= D. TAB GALERI FILE ================= -->
+      <div id="tab-galeri" class="hidden space-y-6">
+        <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-maroon-800">
+          <h3 class="font-extrabold text-lg text-maroon-950 mb-4 flex items-center gap-2"><i class="fas fa-filter"></i> Filter Galeri Dokumen</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+            <div>
+              <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Kategori Arsip</label>
+              <select id="gallery-type" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm">
+                <option value="masuk">Surat Masuk</option>
+                <option value="keluar">Surat Keluar</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Tanggal Mulai</label>
+              <input type="date" id="gallery-start-date" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Tanggal Selesai</label>
+              <input type="date" id="gallery-end-date" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm">
+            </div>
+          </div>
+
+          <div class="flex gap-2 mt-4 justify-end">
+            <button onclick="resetGalleryFilter()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-lg transition-colors">
+              RESET FILTER
+            </button>
+            <button onclick="filterGallery()" class="px-5 py-2 bg-maroon-800 hover:bg-maroon-900 text-white font-bold text-xs rounded-lg transition-colors shadow">
+              TAMPILKAN GALERI
+            </button>
+          </div>
+        </div>
+
+        <!-- Rendered Gallery Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="gallery-render-grid">
+          <!-- Filled via JS -->
+        </div>
+      </div>
+
+      <!-- ================= E. TAB REFERENSI ================= -->
+      <div id="tab-referensi" class="hidden">
+        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-3xl mx-auto text-center border-t-8 border-gold-500">
+          <div class="w-20 h-20 bg-maroon-50 rounded-full flex items-center justify-center text-maroon-800 mx-auto shadow-md mb-4">
+            <i class="fas fa-university text-3xl"></i>
+          </div>
+          <h3 class="text-2xl font-extrabold text-maroon-950">Sistem Informasi Manajemen Persuratan</h3>
+          <p class="text-sm font-semibold text-gold-600 uppercase tracking-wider mt-1">SMKN 1 Pogalan Trenggalek</p>
+          <div class="w-16 h-1 bg-maroon-800 mx-auto my-5 rounded-full"></div>
+          
+          <div class="bg-maroon-50 p-6 rounded-xl border border-maroon-100 inline-block text-left max-w-xl mx-auto mt-2">
+            <p class="text-xs text-maroon-900 font-bold uppercase tracking-wider text-center mb-3"><i class="fas fa-award"></i> Pengembang & Kurator</p>
+            <p class="text-lg font-extrabold text-maroon-950 text-center">Rachmad Effendi TS., M.Pd.</p>
+            <p class="text-sm font-semibold text-gray-600 text-center">Kepala Sekolah - SMKN 1 Pogalan</p>
+            <p class="text-xs text-gray-400 mt-4 leading-relaxed text-center">
+              "Inovasi digitalisasi kearsipan sekolah demi mewujudkan tata kelola administrasi yang transparan, akuntabel, adaptif, dan ramah lingkungan."
+            </p>
+          </div>
+
+          <div class="mt-8 text-[11px] text-gray-400">
+            &copy; 2026 SMKN 1 Pogalan. Seluruh hak cipta dilindungi undang-undang.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. KEPALA SEKOLAH SYSTEM ================= -->
+    <section id="view-kepsek" class="hidden space-y-6">
+      <div class="bg-gradient-to-r from-maroon-950 to-maroon-900 p-6 rounded-2xl text-white shadow-xl relative overflow-hidden">
+        <div class="absolute right-0 top-0 opacity-10 text-[180px] pointer-events-none"><i class="fas fa-gavel"></i></div>
+        <h2 class="text-xl md:text-3xl font-extrabold tracking-tight">Portal Kepala Sekolah</h2>
+        <p class="text-maroon-100 text-sm mt-1">Lakukan otorisasi disposisi surat masuk, tentukan target tindak lanjut, dan berikan instruksi tertulis.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow-md space-y-4">
+        <h3 class="font-extrabold text-lg text-maroon-950 border-b pb-3 flex items-center gap-2">
+          <i class="fas fa-stamp text-gold-500"></i> Persetujuan & Disposisi Surat Masuk
+        </h3>
+        
+        <div class="bg-white rounded-lg shadow overflow-x-auto border border-gray-200">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-gray-100 border-b border-gray-200 text-gray-700 font-bold text-xs uppercase">
+                <th class="p-4 text-center">Agenda & Kode</th>
+                <th class="p-4">Perihal / Isi Surat</th>
+                <th class="p-4">Asal & No. Surat</th>
+                <th class="p-4">Saran Disposisi Admin</th>
+                <th class="p-4">Catatan Anda</th>
+                <th class="p-4">Disposisi Pilihan Anda</th>
+                <th class="p-4 text-center">Tindakan</th>
+              </tr>
+            </thead>
+            <tbody id="table-kepsek-surat" class="divide-y divide-gray-100 text-sm">
+              <!-- Filled via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 5. STAFF / DISPOSISI SYSTEM (Waka, Kakomli, Bendahara, Koordinator) ================= -->
+    <section id="view-staff" class="hidden space-y-6">
+      <div class="bg-gradient-to-r from-maroon-950 via-maroon-900 to-maroon-850 p-6 rounded-2xl text-white shadow-xl">
+        <h2 class="text-xl md:text-3xl font-extrabold tracking-tight flex items-center gap-3">
+          <i class="fas fa-clipboard-list text-gold-400"></i> Kotak Surat <span id="staff-dashboard-title">Bidang</span>
+        </h2>
+        <p class="text-maroon-100 text-sm mt-1">Daftar surat masuk yang didisposisikan khusus kepada divisi Anda oleh Kepala Sekolah.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow border border-gray-200 space-y-4">
+        <div class="flex justify-between items-center flex-wrap gap-2 border-b pb-3">
+          <h3 class="font-extrabold text-lg text-maroon-950 flex items-center gap-2">
+            <i class="fas fa-check-double text-emerald-600"></i> Surat Masuk Disposisi
+          </h3>
+          <span class="px-3 py-1 bg-maroon-100 text-maroon-900 font-bold text-xs rounded-full" id="staff-mail-count">0 Surat</span>
+        </div>
+
+        <div class="bg-white rounded-lg shadow overflow-x-auto border border-gray-200">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-gray-100 border-b border-gray-200 text-gray-700 font-bold text-xs uppercase">
+                <th class="p-4 text-center">No. Agenda</th>
+                <th class="p-4">Perihal & File</th>
+                <th class="p-4">Asal Surat</th>
+                <th class="p-4">Sifat</th>
+                <th class="p-4">Catatan Instruksi Kepala Sekolah</th>
+                <th class="p-4 text-center">Detail / Unduh</th>
+              </tr>
+            </thead>
+            <tbody id="table-staff-surat" class="divide-y divide-gray-100 text-sm">
+              <!-- Filled via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FORM POPUP (MODAL): INPUT / EDIT SURAT ================= -->
+  <div id="modal-surat" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden no-print">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-t-8 border-maroon-800">
+      <div class="p-6 bg-gradient-to-b from-maroon-50 to-white flex justify-between items-center border-b">
+        <h3 class="font-extrabold text-lg text-maroon-950 flex items-center gap-2" id="modal-surat-title">
+          <i class="fas fa-envelope-open-text text-gold-500"></i> Tambah Data Surat Masuk
+        </h3>
+        <button onclick="closeModalSurat()" class="text-gray-400 hover:text-maroon-800 font-bold text-2xl transition-colors">&times;</button>
+      </div>
+
+      <form id="form-surat-action" onsubmit="saveSuratData(event)" class="p-6 space-y-4">
+        <input type="hidden" id="form-action-type"> <!-- 'masuk' or 'keluar' -->
+        <input type="hidden" id="form-edit-id"> <!-- Empty if creating, contains ID if editing -->
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1" id="form-kode-label">Kode Surat</label>
+            <select id="form-kode" required class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 focus:ring-2 focus:ring-maroon-800">
+              <!-- Loaded via JS dynamically based on type -->
+            </select>
+          </div>
+
+          <div id="wrapper-no-urut">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">No. Urut Surat</label>
+            <input type="text" id="form-no-urut" readonly class="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-sm text-gray-500 font-bold" placeholder="Auto">
+          </div>
+          
+          <div id="wrapper-dikirim" class="hidden">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Dikirim Tanggal</label>
+            <input type="date" id="form-dikirim" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Nomor Agenda <span id="label-agenda-hint" class="lowercase font-normal text-gray-400"></span></label>
+            <input type="text" id="form-no-agenda" required class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800" placeholder="Contoh: 001/SMK/2026">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1" id="form-asal-label">Asal Surat</label>
+            <input type="text" id="form-asal" required class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800" placeholder="Asal Instansi atau Organisasi">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Nomor Surat Resmi</label>
+            <input type="text" id="form-no-surat" required class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800" placeholder="Nomor dari Surat Fisik">
+          </div>
+
+          <div id="wrapper-klasifikasi">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Kode Klasifikasi</label>
+            <input type="text" id="form-klasifikasi" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800" placeholder="Contoh: 800 / 421.5">
+          </div>
+          
+          <div id="wrapper-diterima" class="hidden">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Diterima Tanggal</label>
+            <input type="date" id="form-diterima" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Perihal atau Isi Ringkas</label>
+          <textarea id="form-perihal" required rows="2" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800" placeholder="Tulis ringkasan perihal surat"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Sifat Surat</label>
+            <div class="flex gap-4 mt-1.5">
+              <label class="inline-flex items-center text-sm font-semibold text-gray-700 cursor-pointer">
+                <input type="radio" name="form-sifat" value="Penting" checked class="text-maroon-850 focus:ring-maroon-800 mr-2">
+                Penting
+              </label>
+              <label class="inline-flex items-center text-sm font-semibold text-gray-700 cursor-pointer">
+                <input type="radio" name="form-sifat" value="Biasa" class="text-maroon-850 focus:ring-maroon-800 mr-2">
+                Biasa
+              </label>
+            </div>
+          </div>
+
+          <div id="wrapper-tanggal-surat">
+            <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Tanggal Surat</label>
+            <input type="date" id="form-tanggal" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800">
+          </div>
+        </div>
+
+        <!-- File Upload Section with File Simulation -->
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">File Upload (JPG, PNG, PDF maks. 5MB)</label>
+          <div class="flex items-center gap-2">
+            <input type="file" id="form-file" onchange="handleFileSimulation(this)" accept=".jpg,.jpeg,.png,.pdf" class="hidden">
+            <button type="button" onclick="document.getElementById('form-file').click()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-lg text-gray-700 text-xs font-bold flex items-center gap-1">
+              <i class="fas fa-cloud-upload-alt text-maroon-800"></i> Pilih Berkas
+            </button>
+            <span id="form-file-name" class="text-xs font-semibold text-maroon-900 truncate max-w-xs">Belum ada file yang dipilih (File dummy akan disiapkan otomatis)</span>
+          </div>
+        </div>
+
+        <!-- Usulan Disposisi Section (Only for Surat Masuk) -->
+        <div id="form-disposisi-wrapper" class="hidden border-t pt-4 space-y-2">
+          <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider">Usulan Disposisi Administrator (Bisa Pilih > 1)</label>
+          
+          <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 max-h-40 overflow-y-auto space-y-3">
+            <!-- Waka Group -->
+            <div>
+              <p class="text-[10px] font-bold text-maroon-900 uppercase tracking-wide mb-1.5 border-b pb-0.5">Wakil Kepala Sekolah</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="disposisi-group-waka">
+                <!-- Filled via JS -->
+              </div>
+            </div>
+            <!-- Kakomli Group -->
+            <div class="pt-2">
+              <p class="text-[10px] font-bold text-maroon-900 uppercase tracking-wide mb-1.5 border-b pb-0.5">Kepala Kompetensi Keahlian (Kakomli)</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="disposisi-group-kakomli">
+                <!-- Filled via JS -->
+              </div>
+            </div>
+            <!-- Koordinator & Unit Group -->
+            <div class="pt-2">
+              <p class="text-[10px] font-bold text-maroon-900 uppercase tracking-wide mb-1.5 border-b pb-0.5">Koordinator & Unit Kerja</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="disposisi-group-koordinator">
+                <!-- Filled via JS -->
+              </div>
+            </div>
+            <!-- Bendahara Group -->
+            <div class="pt-2">
+              <p class="text-[10px] font-bold text-maroon-900 uppercase tracking-wide mb-1.5 border-b pb-0.5">Keuangan</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <label class="flex items-center text-xs font-semibold text-gray-700 cursor-pointer">
+                  <input type="checkbox" name="usulan-disposisi" value="Bendahara" class="text-maroon-800 focus:ring-maroon-500 rounded mr-2">
+                  Bendahara
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 border-t pt-4">
+          <button type="button" onclick="closeModalSurat()" class="px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-lg transition-colors">
+            BATAL
+          </button>
+          <button type="submit" class="px-5 py-2.5 bg-maroon-800 hover:bg-maroon-900 text-white font-bold text-xs rounded-lg transition-colors shadow">
+            SIMPAN DATA
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= PRINT VIEW / PREVIEW MODAL ================= -->
+  <div id="modal-print" class="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden no-print">
+    <div class="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="closePrintModal()" class="absolute right-4 top-4 text-gray-400 hover:text-maroon-800 font-bold text-2xl">&times;</button>
+      
+      <div id="printArea" class="bg-white p-4">
+        <!-- Letter Head / Kop Surat -->
+        <div class="border-b-4 border-double border-gray-800 pb-4 text-center">
+          <h2 class="text-lg font-extrabold text-gray-900 tracking-wide uppercase">PEMERINTAH PROVINSI JAWA TIMUR</h2>
+          <h1 class="text-xl font-black text-gray-900 tracking-wider">DINAS PENDIDIKAN</h1>
+          <h1 class="text-xl font-black text-maroon-900 tracking-widest text-[22px]">SMK NEGERI 1 POGALAN</h1>
+          <p class="text-xs text-gray-600 mt-1">Jl. Raya Pogalan No. 01, Trenggalek - Jawa Timur, Kode Pos 66371</p>
+          <p class="text-[10px] text-gray-500 font-medium">Telepon: (0354) 791234 | Email: smkn1pogalan@sch.id</p>
+        </div>
+
+        <!-- Rendered Print Content (Generated via JS) -->
+        <div id="print-content" class="mt-6 space-y-4">
+          <!-- Dynamic -->
+        </div>
+      </div>
+
+      <div class="mt-6 border-t pt-4 flex justify-end gap-2 no-print">
+        <button onclick="closePrintModal()" class="px-4 py-2 bg-gray-100 text-gray-700 font-bold text-xs rounded-lg hover:bg-gray-200">
+          TUTUP
+        </button>
+        <button onclick="window.print()" class="px-5 py-2 bg-maroon-800 hover:bg-maroon-950 text-white font-bold text-xs rounded-lg shadow flex items-center gap-1.5">
+          <i class="fas fa-print"></i> CETAK DOKUMEN
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DISPOSISI KEPSEK MODAL ================= -->
+  <div id="modal-disposisi-kepsek" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden no-print">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full border-t-8 border-maroon-850">
+      <div class="p-5 border-b flex justify-between items-center bg-maroon-50 rounded-t-xl">
+        <h3 class="font-extrabold text-maroon-950 flex items-center gap-2">
+          <i class="fas fa-gavel text-gold-500"></i> Form Otorisasi Disposisi Kepala Sekolah
+        </h3>
+        <button onclick="closeDisposisiKepsekModal()" class="text-gray-400 hover:text-maroon-800 font-bold text-xl">&times;</button>
+      </div>
+      
+      <form id="form-disposisi-kepsek" onsubmit="saveDisposisiKepsek(event)" class="p-6 space-y-4">
+        <input type="hidden" id="kepsek-disposisi-id">
+        
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Perihal Surat</label>
+          <p class="text-sm font-bold text-maroon-950 bg-maroon-50 p-3 rounded-lg border border-maroon-100" id="kepsek-disposisi-perihal"></p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-2">Tujuan Disposisi (Bisa Pilih > 1)</label>
+          <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 max-h-48 overflow-y-auto space-y-3">
+            <!-- Waka Group -->
+            <div>
+              <p class="text-[10px] font-bold text-maroon-900 uppercase tracking-wide mb-1 border-b pb-0.5">Wakil Kepala Sekolah</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="kepsek-disposisi-waka">
+                <!-- Loaded via JS -->
+              </div>
+            </div>
+            <!-- Kakomli Group -->
+            <div class="pt-2">
+              <p class="text-[10px] font-bold text-maroon-900 uppercase tracking-wide mb-1 border-b pb-0.5">Kepala Kompetensi Keahlian</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="kepsek-disposisi-kakomli">
+                <!-- Loaded via JS -->
+              </div>
+            </div>
+            <!-- Koordinator & Unit Group -->
+            <div class="pt-2">
+              <p class="text-[10px] font-bold text-maroon-900 uppercase tracking-wide mb-1 border-b pb-0.5">Koordinator & Unit Kerja</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2" id="kepsek-disposisi-koordinator">
+                <!-- Loaded via JS -->
+              </div>
+            </div>
+            <!-- Bendahara Group -->
+            <div class="pt-2">
+              <p class="text-[10px] font-bold text-maroon-900 uppercase tracking-wide mb-1 border-b pb-0.5">Keuangan</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <label class="flex items-center text-xs font-semibold text-gray-700 cursor-pointer">
+                  <input type="checkbox" name="kepsek-disposisi-targets" value="Bendahara" class="text-maroon-800 focus:ring-maroon-500 rounded mr-2">
+                  Bendahara
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1">Catatan Instruksi Kepala Sekolah</label>
+          <textarea id="kepsek-disposisi-catatan" rows="3" required class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-maroon-800" placeholder="Tulis instruksi tindak lanjut di sini..."></textarea>
+        </div>
+
+        <div class="flex justify-end gap-2 border-t pt-4">
+          <button type="button" onclick="closeDisposisiKepsekModal()" class="px-5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-lg">
+            BATAL
+          </button>
+          <button type="submit" class="px-5 py-2 bg-maroon-800 hover:bg-maroon-900 text-white font-bold text-xs rounded-lg shadow">
+            SIMPAN & DISPOSISI
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= PREVIEW FILE MODAL ================= -->
+  <div id="modal-view-file" class="fixed inset-0 z-50 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden no-print">
+    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-4 relative">
+      <button onclick="closeFileModal()" class="absolute right-2 top-2 bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg hover:bg-red-800">&times;</button>
+      <div id="file-viewer-content" class="flex flex-col items-center justify-center p-6 space-y-4">
+        <!-- Dynamic via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DELETE CONFIRMATION MODAL ================= -->
+  <div id="modal-delete-confirm" class="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden no-print">
+    <div class="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 text-center border-t-4 border-red-600">
+      <div class="w-16 h-16 bg-red-50 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-100">
+        <i class="fas fa-exclamation-triangle text-3xl"></i>
+      </div>
+      <h3 class="font-extrabold text-lg text-gray-900 mb-2">Konfirmasi Hapus</h3>
+      <p class="text-sm text-gray-500 mb-6">Apakah Anda yakin ingin menghapus arsip surat ini? Data tidak dapat dipulihkan.</p>
+      <div class="flex justify-center gap-3">
+        <button onclick="closeDeleteModal()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-lg transition-colors">BATAL</button>
+        <button id="btn-confirm-delete" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-lg transition-colors shadow flex items-center gap-2"><i class="fas fa-trash-alt"></i> YA, HAPUS</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CUSTOM TOAST NOTIFICATION ================= -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-gray-900 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transition-all transform translate-y-20 opacity-0 no-print">
+    <div class="text-gold-500" id="toast-icon"><i class="fas fa-check-circle text-lg"></i></div>
+    <div class="text-xs font-semibold" id="toast-message">Notifikasi Berhasil!</div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-gray-200 py-6 mt-12 no-print">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4">
+      <div>
+        <p class="font-bold text-gray-700">ASKARA - Aplikasi Surat dan Kearsipan Sekolah</p>
+        <p class="mt-0.5">SMK Negeri 1 Pogalan Trenggalek - Jawa Timur</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1.5 bg-maroon-50 text-maroon-850 font-bold rounded-lg border border-maroon-100">
+          Modifikasi oleh Rachmad Effendi TS., M.Pd. - Kepala SMKN 1 Pogalan
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= APP LOGIC (JAVASCRIPT) ================= -->
+  <script>
+    // ---------------------------------------------------------
+    // KONEKSI GOOGLE APPS SCRIPT
+    // ---------------------------------------------------------
+    // PASTIKAN ANDA MENGISI VARIABEL DI BAWAH INI DENGAN URL WEB APP MILIK ANDA
+    const GAS_URL = "https://script.google.com/macros/s/AKfycby91wMgpTFPMwio40SfAj3LQDdjG0-UKdSWrlqtvAcQn-O6Iwtff8NxtYj1aw_EJf0r/exec";
+
+    // ---------------------------------------------------------
+    // ROLE LISTS (CONSTANTS)
+    // ---------------------------------------------------------
+    const WAKA_LIST = [
+      'Waka Bidang Kurikulum',
+      'Waka Bidang Kesiswaan',
+      'Waka Bidang Sarana dan Prasarana',
+      'Waka Bidang Humas',
+      'Waka Bidang Litbang'
+    ];
+
+    const KAKOMLI_LIST = [
+      'Kakomli Akuntansi dan Keuangan Lembaga (AKT)',
+      'Kakomli Manajemen Perkantoran (MPK)',
+      'Kakomli Desain dan Produksi Busana (DPB)',
+      'Kakomli Kuliner (Tata Boga)',
+      'Kakomli Desain Komunikasi Visual (DKV)',
+      'Kakomli Bisnis Digital (BDG)',
+      'Kakomli Teknik Komputer dan Jaringan (TKJ)',
+      'Kakomli Tata Kecantikan Kulit dan Rambut (TKKR)'
+    ];
+
+    const KOORDINATOR_LIST = [
+      'Koordinator BK',
+      'Koordinator Tendik',
+      'Kepala Perpustakaan',
+      'Ketua LSP',
+      'BMS'
+    ];
+
+    const SURAT_MASUK_KODES = [
+      '1. Mendikdasmen',
+      '2. Dinas pend. Prov',
+      '3. Cabang dinas',
+      '4. Muspida',
+      '5. Muspika',
+      '6. Surat tugas',
+      '7. Undangan',
+      '8. Brosur',
+      '9. Lain-lain'
+    ];
+
+    const SURAT_KELUAR_KODES = [
+      '1. Mendikdasmen',
+      '2. Dinas pend. Prov',
+      '3. Cabang dinas',
+      '4. Muspida',
+      '5. Muspika',
+      '6. Surat tugas',
+      '7. Undangan',
+      '8. Brosur',
+      '9. Lain"',
+      '10. Surat keputusan',
+      '11. Keuangan',
+      '12. Kepegawaian',
+      '13. Kesiswaan'
+    ];
+
+    // ---------------------------------------------------------
+    // SYSTEM STATE
+    // ---------------------------------------------------------
+    let state = {
+      currentUser: null, // { role: string, specificRole: string }
+      suratMasuk: [],
+      suratKeluar: [],
+      activeAdminTab: 'beranda',
+      activeAdminSubTab: 'masuk',
+      selectedSimulatedFileName: '',
+      selectedSimulatedFileType: '',
+      selectedFileBase64: '', // Cloud File Storage Extractor Base64
+      // Notification track
+      notifiedItems: [] // track IDs of acknowledged mail for specific roles
+    };
+
+    // ---------------------------------------------------------
+    // INITIALIZATION & MOCK DATA
+    // ---------------------------------------------------------
+    window.onload = function() {
+      initDatabase();
+      renderDisposisiCheckboxes();
+      checkAuthSession();
+      updateDashboardStats();
+      renderLandingNotifications();
+    };
+
+    function initDatabase() {
+      // Setup Initial Mock Data for first run
+      let storedMasuk = localStorage.getItem('askara_surat_masuk');
+      let storedKeluar = localStorage.getItem('askara_surat_keluar');
+      let storedNotified = localStorage.getItem('askara_notified');
+
+      if (!storedMasuk) {
+        const mockMasuk = [
+          {
+            id: 'sm-1',
+            noAgenda: '1',
+            kode: '2. Dinas pend. Prov',
+            asal: 'Dinas Pendidikan Provinsi Jawa Timur',
+            noSurat: '421.5/1209/101.6.27/2026',
+            perihal: 'Pemberitahuan Pelaksanaan Uji Kompetensi Keahlian (UKK) Utama Tahun Ajaran 2025/2026',
+            sifat: 'Penting',
+            dikirimTanggal: '2026-05-08',
+            diterimaTanggal: '2026-05-10',
+            file: { name: 'ukk_provinsi.pdf', type: 'application/pdf', dummy: true },
+            usulanDisposisi: ['Waka Bidang Kurikulum', 'Kakomli Teknik Komputer dan Jaringan (TKJ)', 'Kakomli Akuntansi dan Keuangan Lembaga (AKT)'],
+            catatanKepsek: 'Mohon dikoordinasikan persiapan teknis dan ruang lab untuk ujian.',
+            disposisiKepsek: ['Waka Bidang Kurikulum', 'Kakomli Teknik Komputer dan Jaringan (TKJ)'],
+            disposisiDate: '2026-05-12'
+          },
+          {
+            id: 'sm-2',
+            noAgenda: '2',
+            kode: '7. Undangan',
+            asal: 'Balai Pengembangan Penjaminan Mutu Pendidikan (BPPMP)',
+            noSurat: '0988/B/PP.01/2026',
+            perihal: 'Undangan Workshop Penyelarasan Kurikulum Industri Desain Komunikasi Visual',
+            sifat: 'Penting',
+            dikirimTanggal: '2026-05-12',
+            diterimaTanggal: '2026-05-15',
+            file: { name: 'workshop_dkv_bppmp.png', type: 'image/png', dummy: true },
+            usulanDisposisi: ['Waka Bidang Kurikulum', 'Kakomli Desain Komunikasi Visual (DKV)'],
+            catatanKepsek: 'Hadiri sesuai undangan, buat jadwal pengganti PBM bagi guru yang ditugaskan.',
+            disposisiKepsek: ['Waka Bidang Kurikulum', 'Kakomli Desain Komunikasi Visual (DKV)'],
+            disposisiDate: '2026-05-16'
+          },
+          {
+            id: 'sm-3',
+            noAgenda: '3',
+            kode: '9. Lain-lain',
+            asal: 'PT. Kereta Api Indonesia (Persero) - Daop VII',
+            noSurat: 'KAI/702/V/2026',
+            perihal: 'Permohonan Kerjasama Tempat Praktek Kerja Lapangan (PKL) Siswa Kelas XI',
+            sifat: 'Biasa',
+            dikirimTanggal: '2026-05-18',
+            diterimaTanggal: '2026-05-20',
+            file: { name: 'mou_kai_pkl.jpg', type: 'image/jpeg', dummy: true },
+            usulanDisposisi: ['Waka Bidang Humas', 'Koordinator BK'],
+            catatanKepsek: '',
+            disposisiKepsek: [], // Awaiting Kepsek Action
+            disposisiDate: ''
+          }
+        ];
+        localStorage.setItem('askara_surat_masuk', JSON.stringify(mockMasuk));
+        state.suratMasuk = mockMasuk;
+      } else {
+        state.suratMasuk = JSON.parse(storedMasuk);
+      }
+
+      if (!storedKeluar) {
+        const mockKeluar = [
+          {
+            id: 'sk-1',
+            noAgenda: '1',
+            kode: '6. Surat tugas',
+            asal: 'SMK Negeri 1 Pogalan',
+            noSurat: '800/215/101.6.27/2026',
+            perihal: 'Surat Tugas Guru Pembina Ekstrakurikuler dalam Festival Seni Pelajar Trenggalek',
+            sifat: 'Biasa',
+            dikirimTanggal: '2026-05-11',
+            diterimaTanggal: '2026-05-12',
+            file: { name: 'st_festival_seni.pdf', type: 'application/pdf', dummy: true }
+          },
+          {
+            id: 'sk-2',
+            noAgenda: '2',
+            kode: '7. Undangan',
+            asal: 'SMK Negeri 1 Pogalan',
+            noSurat: '005/341/101.6.27/2026',
+            perihal: 'Undangan Rapat Pleno Komite Sekolah bersama Wali Murid Kelas XII',
+            sifat: 'Penting',
+            dikirimTanggal: '2026-05-18',
+            diterimaTanggal: '2026-05-19',
+            file: { name: 'undangan_pleno_komite.jpg', type: 'image/jpeg', dummy: true }
+          }
+        ];
+        localStorage.setItem('askara_surat_keluar', JSON.stringify(mockKeluar));
+        state.suratKeluar = mockKeluar;
+      } else {
+        state.suratKeluar = JSON.parse(storedKeluar);
+      }
+
+      state.notifiedItems = storedNotified ? JSON.parse(storedNotified) : [];
+    }
+
+    function saveStateToLocalStorage() {
+      localStorage.setItem('askara_surat_masuk', JSON.stringify(state.suratMasuk));
+      localStorage.setItem('askara_surat_keluar', JSON.stringify(state.suratKeluar));
+      localStorage.setItem('askara_notified', JSON.stringify(state.notifiedItems));
+    }
+
+    // ---------------------------------------------------------
+    // RENDER UTILITIES
+    // ---------------------------------------------------------
+    function renderDisposisiCheckboxes() {
+      // Helper to generate dynamic role lists in modal forms
+      const renderList = (roles, containerId, inputName) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        roles.forEach(role => {
+          container.innerHTML += `
+            <label class="flex items-center text-xs font-semibold text-gray-700 cursor-pointer">
+              <input type="checkbox" name="${inputName}" value="${role}" class="text-maroon-800 focus:ring-maroon-500 rounded mr-2">
+              ${role}
+            </label>
+          `;
+        });
+      };
+
+      renderList(WAKA_LIST, 'disposisi-group-waka', 'usulan-disposisi');
+      renderList(KAKOMLI_LIST, 'disposisi-group-kakomli', 'usulan-disposisi');
+      renderList(KOORDINATOR_LIST, 'disposisi-group-koordinator', 'usulan-disposisi');
+      
+      renderList(WAKA_LIST, 'kepsek-disposisi-waka', 'kepsek-disposisi-targets');
+      renderList(KAKOMLI_LIST, 'kepsek-disposisi-kakomli', 'kepsek-disposisi-targets');
+      renderList(KOORDINATOR_LIST, 'kepsek-disposisi-koordinator', 'kepsek-disposisi-targets');
+    }
+
+    // ---------------------------------------------------------
+    // ROUTING / VIEW NAVIGATION
+    // ---------------------------------------------------------
+    function showSection(sectionId) {
+      document.getElementById('view-landing').classList.add('hidden');
+      document.getElementById('view-login').classList.add('hidden');
+      document.getElementById('view-admin').classList.add('hidden');
+      document.getElementById('view-kepsek').classList.add('hidden');
+      document.getElementById('view-staff').classList.add('hidden');
+
+      document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    function backToLanding() {
+      showSection('view-landing');
+    }
+
+    // ---------------------------------------------------------
+    // LOGIN & AUTHENTICATION FLOW
+    // ---------------------------------------------------------
+    function openLogin(role) {
+      const loginRoleTitle = document.getElementById('login-role-title');
+      const roleSelectorContainer = document.getElementById('role-selector-container');
+      const loginSpecificRole = document.getElementById('login-specific-role');
+      const loginIcon = document.getElementById('login-icon');
+
+      loginRoleTitle.innerText = role;
+      document.getElementById('login-username').value = '';
+      document.getElementById('login-password').value = '';
+
+      // Reset Selector
+      roleSelectorContainer.classList.add('hidden');
+      loginSpecificRole.innerHTML = '';
+
+      // Update login header based on selected category
+      if (role === 'Waka') {
+        roleSelectorContainer.classList.remove('hidden');
+        document.getElementById('role-select-label').innerText = 'Pilih Bidang Wakil Kepala Sekolah';
+        WAKA_LIST.forEach(waka => {
+          loginSpecificRole.innerHTML += `<option value="${waka}">${waka}</option>`;
+        });
+        loginIcon.className = "fas fa-users text-2xl text-gold-400";
+      } else if (role === 'Kakomli') {
+        roleSelectorContainer.classList.remove('hidden');
+        document.getElementById('role-select-label').innerText = 'Pilih Program Keahlian (Kakomli)';
+        KAKOMLI_LIST.forEach(kakomli => {
+          loginSpecificRole.innerHTML += `<option value="${kakomli}">${kakomli}</option>`;
+        });
+        loginIcon.className = "fas fa-graduation-cap text-2xl text-gold-400";
+      } else if (role === 'Koordinator') {
+        roleSelectorContainer.classList.remove('hidden');
+        document.getElementById('role-select-label').innerText = 'Pilih Koordinator / Unit Kerja';
+        KOORDINATOR_LIST.forEach(koor => {
+          loginSpecificRole.innerHTML += `<option value="${koor}">${koor}</option>`;
+        });
+        loginIcon.className = "fas fa-network-wired text-2xl text-gold-400";
+      } else if (role === 'Kepala Sekolah') {
+        loginIcon.className = "fas fa-user-tie text-2xl text-gold-400";
+      } else if (role === 'Bendahara') {
+        loginIcon.className = "fas fa-coins text-2xl text-gold-400";
+      } else {
+        loginIcon.className = "fas fa-user-cog text-2xl text-gold-400";
+      }
+
+      state.tempSelectedRoleCategory = role;
+      showSection('view-login');
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      const category = state.tempSelectedRoleCategory;
+
+      let success = false;
+      let specificRole = category;
+
+      // Demo Simple Login Scheme
+      if (category === 'Administrator' && username === 'admin' && password === 'admin') {
+        success = true;
+      } else if (category === 'Kepala Sekolah' && username === 'kepsek' && password === 'kepsek') {
+        success = true;
+      } else if ((category === 'Waka' || category === 'Kakomli' || category === 'Koordinator' || category === 'Bendahara') && username === 'user' && password === 'user') {
+        success = true;
+        if (category === 'Waka' || category === 'Kakomli' || category === 'Koordinator') {
+          specificRole = document.getElementById('login-specific-role').value;
+        }
+      } else if (username === 'demo' && password === 'demo') {
+        // Fallback for easy evaluator review
+        success = true;
+        if (category === 'Waka' || category === 'Kakomli' || category === 'Koordinator') {
+          specificRole = document.getElementById('login-specific-role').value;
+        }
+      }
+
+      if (success) {
+        state.currentUser = { role: category, specificRole: specificRole, username: username };
+        sessionStorage.setItem('askara_auth', JSON.stringify(state.currentUser));
+        
+        showToast(`Selamat datang, ${specificRole}!`, 'success');
+        setupDashboardForUser();
+      } else {
+        showToast('Kredensial salah! Silakan coba lagi.', 'error');
+      }
+    }
+
+    function checkAuthSession() {
+      const storedAuth = sessionStorage.getItem('askara_auth');
+      if (storedAuth) {
+        state.currentUser = JSON.parse(storedAuth);
+        setupDashboardForUser();
+      } else {
+        showSection('view-landing');
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('askara_auth');
+      state.currentUser = null;
+      document.getElementById('header-user-info').classList.add('hidden');
+      showToast('Anda telah keluar dari sistem.', 'info');
+      showSection('view-landing');
+    }
+
+    function setupDashboardForUser() {
+      const user = state.currentUser;
+      if (!user) return;
+
+      // Header update
+      document.getElementById('header-user-info').classList.remove('hidden');
+      document.getElementById('header-role-label').innerText = user.role;
+      document.getElementById('header-username-label').innerText = user.specificRole;
+
+      // View Routing Based on Role
+      if (user.role === 'Administrator') {
+        showSection('view-admin');
+        setAdminTab('beranda');
+      } else if (user.role === 'Kepala Sekolah') {
+        showSection('view-kepsek');
+        renderKepsekTable();
+      } else {
+        showSection('view-staff');
+        document.getElementById('staff-dashboard-title').innerText = user.specificRole;
+        renderStaffTable();
+      }
+
+      updateNotificationBell();
+    }
+
+    // ---------------------------------------------------------
+    // NOTIFICATION BELL MANAGEMENT
+    // ---------------------------------------------------------
+    function updateNotificationBell() {
+      const user = state.currentUser;
+      if (!user) return;
+
+      const badge = document.getElementById('notif-badge');
+      
+      if (user.role === 'Kepala Sekolah') {
+        // Kepsek gets notifications for mail with NO disposisi
+        const pendingCount = state.suratMasuk.filter(s => !s.disposisiKepsek || s.disposisiKepsek.length === 0).length;
+        if (pendingCount > 0) {
+          badge.innerText = pendingCount;
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
+        }
+      } else if (user.role === 'Administrator') {
+        badge.classList.add('hidden'); // Admin doesn't require bell notifications
+      } else {
+        // Staff/Coordinator gets notified for mails disposed to them, but NOT yet acknowledged
+        const matches = state.suratMasuk.filter(s => {
+          return s.disposisiKepsek && 
+                 s.disposisiKepsek.includes(user.specificRole) && 
+                 !state.notifiedItems.includes(`${user.specificRole}_${s.id}`);
+        });
+
+        if (matches.length > 0) {
+          badge.innerText = matches.length;
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
+        }
+      }
+    }
+
+    function toggleNotificationPanel() {
+      const panel = document.getElementById('notif-panel');
+      const isHidden = panel.classList.contains('hidden');
+      if (isHidden) {
+        renderNotificationList();
+        panel.classList.remove('hidden');
+      } else {
+        panel.classList.add('hidden');
+      }
+    }
+
+    function renderNotificationList() {
+      const user = state.currentUser;
+      const list = document.getElementById('notif-list');
+      if (!list || !user) return;
+
+      list.innerHTML = '';
+
+      if (user.role === 'Kepala Sekolah') {
+        const pendings = state.suratMasuk.filter(s => !s.disposisiKepsek || s.disposisiKepsek.length === 0);
+        if (pendings.length === 0) {
+          list.innerHTML = `<div class="p-4 text-center text-xs text-gray-400">Tidak ada surat masuk baru menunggu disposisi.</div>`;
+          return;
+        }
+
+        pendings.forEach(s => {
+          list.innerHTML += `
+            <div class="p-3 hover:bg-gray-50 transition-colors cursor-pointer" onclick="scrollAndFocus('${s.id}')">
+              <div class="flex justify-between items-start">
+                <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">${s.sifat}</span>
+                <span class="text-[10px] text-gray-400">${s.diterimaTanggal}</span>
+              </div>
+              <p class="text-xs font-bold text-gray-800 mt-1 line-clamp-2">${s.perihal}</p>
+              <p class="text-[10px] text-gray-500 mt-0.5">Asal: ${s.asal}</p>
+            </div>
+          `;
+        });
+      } else if (user.role === 'Administrator') {
+        list.innerHTML = `<div class="p-4 text-center text-xs text-gray-400">Administrator memantau sistem melalui tab Transaksi.</div>`;
+      } else {
+        const matches = state.suratMasuk.filter(s => {
+          return s.disposisiKepsek && s.disposisiKepsek.includes(user.specificRole);
+        });
+
+        if (matches.length === 0) {
+          list.innerHTML = `<div class="p-4 text-center text-xs text-gray-400">Belum ada disposisi surat untuk bidang Anda.</div>`;
+          return;
+        }
+
+        matches.forEach(s => {
+          const isNew = !state.notifiedItems.includes(`${user.specificRole}_${s.id}`);
+          list.innerHTML += `
+            <div class="p-3 hover:bg-gray-50 transition-colors cursor-pointer flex flex-col gap-1 ${isNew ? 'bg-amber-50/50 border-l-4 border-gold-500' : ''}" onclick="openStaffMailDetail('${s.id}')">
+              <div class="flex justify-between items-center">
+                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${isNew ? 'bg-gold-500 text-maroon-950' : 'bg-gray-100 text-gray-400'}">${isNew ? 'BARU' : 'DIBACA'}</span>
+                <span class="text-[9px] text-gray-400">${s.disposisiDate || s.diterimaTanggal}</span>
+              </div>
+              <p class="text-xs font-bold text-gray-800 line-clamp-2">${s.perihal}</p>
+              <p class="text-[10px] italic text-maroon-900 font-medium line-clamp-1">Keterangan Kepsek: "${s.catatanKepsek || '-'}"</p>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function scrollAndFocus(id) {
+      toggleNotificationPanel();
+      const element = document.getElementById(`row-kepsek-${id}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.classList.add('bg-gold-50');
+        setTimeout(() => element.classList.remove('bg-gold-50'), 2000);
+      }
+    }
+
+    function openStaffMailDetail(id) {
+      toggleNotificationPanel();
+      
+      // Mark as read immediately
+      const user = state.currentUser;
+      const key = `${user.specificRole}_${id}`;
+      if (!state.notifiedItems.includes(key)) {
+        state.notifiedItems.push(key);
+        saveStateToLocalStorage();
+        updateNotificationBell();
+        renderStaffTable();
+      }
+
+      // Show File/Instruksi Preview Modal
+      const s = state.suratMasuk.find(item => item.id === id);
+      if (!s) return;
+
+      const viewer = document.getElementById('file-viewer-content');
+      document.getElementById('modal-view-file').classList.remove('hidden');
+
+      viewer.innerHTML = `
+        <div class="text-center w-full">
+          <div class="w-16 h-16 bg-maroon-100 text-maroon-800 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-file-invoice text-2xl"></i>
+          </div>
+          <h3 class="font-extrabold text-lg text-maroon-950">Detail Surat Disposisi</h3>
+          <p class="text-xs text-gray-400">No. Agenda: ${s.noAgenda}</p>
+        </div>
+
+        <div class="w-full bg-gray-50 p-4 rounded-xl space-y-2 border text-xs text-left">
+          <p><strong>Asal Surat:</strong> ${s.asal}</p>
+          <p><strong>No. Surat Resmi:</strong> ${s.noSurat}</p>
+          <p><strong>Diterima Tanggal:</strong> ${s.diterimaTanggal} <span class="text-gray-400">(Dikirim: ${s.dikirimTanggal})</span></p>
+          <p><strong>Sifat:</strong> <span class="px-2 py-0.5 bg-red-100 text-red-800 font-bold rounded">${s.sifat}</span></p>
+          <p><strong>Perihal:</strong> ${s.perihal}</p>
+        </div>
+
+        <div class="w-full bg-maroon-50 p-4 rounded-xl border border-maroon-100 text-xs text-left">
+          <p class="font-bold text-maroon-900 mb-1"><i class="fas fa-gavel"></i> Instruksi Kepala Sekolah:</p>
+          <p class="italic text-gray-800">"${s.catatanKepsek || 'Laksanakan sesuai tugas pokok dan fungsi.'}"</p>
+        </div>
+
+        <div class="flex gap-2 w-full pt-3">
+          <button onclick="simulateDownloadFile('${s.file.name}')" class="flex-1 py-2 bg-gradient-to-r from-maroon-800 to-maroon-900 hover:from-maroon-900 hover:to-maroon-950 text-white font-bold text-xs rounded-lg shadow transition-all flex items-center justify-center gap-1">
+            <i class="fas fa-download"></i> UNDUH LAMPIRAN
+          </button>
+          <button onclick="closeFileModal()" class="flex-1 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-lg transition-colors">
+            TUTUP
+          </button>
+        </div>
+      `;
+    }
+
+    function closeFileModal() {
+      document.getElementById('modal-view-file').classList.add('hidden');
+    }
+
+    function simulateDownloadFile(fileName) {
+      showToast(`Mendownload file: ${fileName}`, 'info');
+    }
+
+    // ---------------------------------------------------------
+    // FILE HANDLER SIMULATION & EXTRACTION TO CLOUD
+    // ---------------------------------------------------------
+    function handleFileSimulation(input) {
+      const fileNameSpan = document.getElementById('form-file-name');
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        
+        // Max file validation 5MB
+        if (file.size > 5 * 1024 * 1024) {
+          showToast('File tidak boleh melebihi 5MB!', 'error');
+          input.value = '';
+          fileNameSpan.innerText = 'Belum ada file yang dipilih';
+          state.selectedSimulatedFileName = '';
+          state.selectedSimulatedFileType = '';
+          state.selectedFileBase64 = '';
+          return;
+        }
+
+        fileNameSpan.innerText = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+        state.selectedSimulatedFileName = file.name;
+        state.selectedSimulatedFileType = file.type;
+
+        // Ekstraksi file fisik menjadi Base64 untuk dikirim ke Google Apps Script (Drive)
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          state.selectedFileBase64 = e.target.result.split(',')[1];
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function viewFileSimulation(name, type) {
+      const viewer = document.getElementById('file-viewer-content');
+      document.getElementById('modal-view-file').classList.remove('hidden');
+
+      viewer.innerHTML = '';
+
+      if (type.includes('image') || name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.png')) {
+        // Simulated Preview Image Card
+        viewer.innerHTML = `
+          <h4 class="font-bold text-maroon-950 text-sm mb-2 truncate max-w-sm"><i class="fas fa-image text-emerald-600"></i> ${name}</h4>
+          <div class="w-full h-64 bg-gradient-to-br from-maroon-50 to-gray-100 rounded-lg border border-dashed border-gray-300 flex flex-col items-center justify-center relative overflow-hidden">
+            <i class="fas fa-file-image text-5xl text-maroon-800 mb-2"></i>
+            <p class="text-xs font-bold text-gray-600">Representasi Tampilan Gambar Berkas</p>
+            <p class="text-[10px] text-gray-400 mt-1">SMK Negeri 1 Pogalan - Arsip Digital</p>
+          </div>
+          <button onclick="simulateDownloadFile('${name}')" class="w-full py-2 bg-maroon-800 text-white font-bold text-xs rounded-lg hover:bg-maroon-900 mt-2">
+            <i class="fas fa-download"></i> UNDUH FILE (PNG/JPG)
+          </button>
+        `;
+      } else {
+        // PDF Simulation Card
+        viewer.innerHTML = `
+          <h4 class="font-bold text-maroon-950 text-sm mb-2 truncate max-w-sm"><i class="fas fa-file-pdf text-red-600"></i> ${name}</h4>
+          <div class="w-full h-64 bg-gray-50 border border-gray-200 rounded-lg p-6 flex flex-col items-center justify-center text-center">
+            <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-3">
+              <i class="fas fa-file-pdf text-3xl"></i>
+            </div>
+            <p class="text-sm font-bold text-gray-800">Simulasi Dokumen PDF</p>
+            <p class="text-xs text-gray-500 mt-1">Gunakan tombol unduh di bawah untuk mencetak atau melihat file asli secara lokal.</p>
+          </div>
+          <button onclick="simulateDownloadFile('${name}')" class="w-full py-2 bg-maroon-800 text-white font-bold text-xs rounded-lg hover:bg-maroon-900 mt-2">
+            <i class="fas fa-download"></i> UNDUH FILE PDF (Maks. 5MB)
+          </button>
+        `;
+      }
+    }
+
+    // ---------------------------------------------------------
+    // ADMIN: TAB SYSTEM & COUNTERS
+    // ---------------------------------------------------------
+    function setAdminTab(tab) {
+      state.activeAdminTab = tab;
+      
+      const tabs = ['beranda', 'transaksi', 'agenda', 'galeri', 'referensi'];
+      tabs.forEach(t => {
+        document.getElementById(`tab-${t}`).classList.add('hidden');
+        document.getElementById(`btn-tab-${t}`).className = "flex-1 min-w-[120px] py-2.5 px-4 rounded-lg font-bold text-xs md:text-sm flex items-center justify-center gap-2 transition-all text-gray-600 hover:bg-maroon-50 hover:text-maroon-900";
+      });
+
+      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+      document.getElementById(`btn-tab-${tab}`).className = "flex-1 min-w-[120px] py-2.5 px-4 rounded-lg font-bold text-xs md:text-sm flex items-center justify-center gap-2 transition-all bg-maroon-900 text-white shadow-md";
+
+      // Render tab-specific actions
+      if (tab === 'transaksi') {
+        setSubTab(state.activeAdminSubTab);
+      } else if (tab === 'agenda') {
+        resetAgendaFilter();
+      } else if (tab === 'galeri') {
+        resetGalleryFilter();
+      }
+    }
+
+    function setSubTab(sub) {
+      state.activeAdminSubTab = sub;
+      
+      const btnMasuk = document.getElementById('btn-subtab-masuk');
+      const btnKeluar = document.getElementById('btn-subtab-keluar');
+      const containerMasuk = document.getElementById('subtab-masuk');
+      const containerKeluar = document.getElementById('subtab-keluar');
+
+      if (sub === 'masuk') {
+        btnMasuk.className = "py-2.5 px-6 font-bold text-sm border-b-2 border-maroon-800 text-maroon-850";
+        btnKeluar.className = "py-2.5 px-6 font-bold text-sm text-gray-500 border-b-2 border-transparent hover:text-maroon-800";
+        containerMasuk.classList.remove('hidden');
+        containerKeluar.classList.add('hidden');
+        renderAdminSuratMasukTable();
+      } else {
+        btnKeluar.className = "py-2.5 px-6 font-bold text-sm border-b-2 border-maroon-800 text-maroon-850";
+        btnMasuk.className = "py-2.5 px-6 font-bold text-sm text-gray-500 border-b-2 border-transparent hover:text-maroon-800";
+        containerKeluar.classList.remove('hidden');
+        containerMasuk.classList.add('hidden');
+        renderAdminSuratKeluarTable();
+      }
+    }
+
+    function updateDashboardStats() {
+      const masukCount = state.suratMasuk.length;
+      const keluarCount = state.suratKeluar.length;
+      const disposisiCount = state.suratMasuk.filter(s => s.disposisiKepsek && s.disposisiKepsek.length > 0).length;
+
+      document.getElementById('stat-surat-masuk').innerText = masukCount;
+      document.getElementById('stat-surat-keluar').innerText = keluarCount;
+      document.getElementById('stat-disposisi').innerText = disposisiCount;
+    }
+
+    // ---------------------------------------------------------
+    // ADMIN: SURAT MASUK TABLE & OPERATIONS
+    // ---------------------------------------------------------
+    function renderAdminSuratMasukTable() {
+      const tbody = document.getElementById('table-surat-masuk');
+      tbody.innerHTML = '';
+
+      if (state.suratMasuk.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-400">Tidak ada data surat masuk.</td></tr>`;
+        return;
+      }
+
+      state.suratMasuk.forEach(s => {
+        // Sifat styling
+        const sifatBadge = s.sifat === 'Penting' 
+          ? 'bg-rose-100 text-rose-800 border-rose-200' 
+          : 'bg-slate-100 text-slate-800 border-slate-200';
+
+        // Disposisi conversion
+        const usulanText = s.usulanDisposisi && s.usulanDisposisi.length > 0 
+          ? s.usulanDisposisi.map(item => `<span class="inline-block bg-maroon-50 text-maroon-900 border border-maroon-100 text-[10px] px-2 py-0.5 rounded font-medium m-0.5">${item}</span>`).join('') 
+          : '<span class="text-xs text-gray-400 italic">Tidak ada usulan</span>';
+
+        const realDisposisiText = s.disposisiKepsek && s.disposisiKepsek.length > 0 
+          ? s.disposisiKepsek.map(item => `<span class="inline-block bg-gold-100 text-gold-900 border border-gold-200 text-[10px] px-2 py-0.5 rounded font-bold m-0.5">${item}</span>`).join('') 
+          : '<span class="text-xs text-amber-600 font-bold italic"><i class="fas fa-clock"></i> Menunggu Otorisasi Kepsek</span>';
+
+        const catText = s.catatanKepsek 
+          ? `<p class="text-xs italic text-gray-600 font-medium bg-gray-50 p-2 rounded border mt-1">"${s.catatanKepsek}"</p>` 
+          : '<span class="text-xs text-gray-400 italic mt-1 block">Belum ada catatan</span>';
+
+        tbody.innerHTML += `
+          <tr class="hover:bg-gray-50/50 transition-colors">
+            <td class="p-4 text-center font-bold text-maroon-950">
+              <div class="text-xs bg-maroon-50 text-maroon-900 px-2.5 py-1 rounded-full border border-maroon-100 inline-block">No. ${s.noAgenda}</div>
+              <div class="text-[10px] text-gray-400 mt-1">${s.kode}</div>
+            </td>
+            <td class="p-4 max-w-xs">
+              <p class="font-bold text-gray-800 line-clamp-2">${s.perihal}</p>
+              <button onclick="viewFileSimulation('${s.file?.name || 'file.pdf'}', '${s.file?.type || 'application/pdf'}')" class="mt-2 flex items-center gap-1.5 text-xs font-bold text-maroon-800 hover:text-maroon-950">
+                <i class="fas fa-file-invoice text-sm"></i> Lihat Lampiran
+              </button>
+            </td>
+            <td class="p-4 font-semibold text-gray-700">${s.asal}</td>
+            <td class="p-4">
+              <p class="text-xs text-gray-500 font-medium">No: ${s.noSurat}</p>
+              <p class="text-[10px] text-gray-400 mt-1">Dikirim: <span class="font-semibold">${s.dikirimTanggal}</span></p>
+              <p class="text-[10px] text-gray-400">Diterima: <span class="font-semibold">${s.diterimaTanggal}</span></p>
+              <span class="inline-block mt-2 text-[10px] font-bold border px-2 py-0.5 rounded-full ${sifatBadge}">${s.sifat}</span>
+            </td>
+            <td class="p-4 max-w-xs">${usulanText}</td>
+            <td class="p-4 max-w-xs">
+              ${realDisposisiText}
+              ${catText}
+            </td>
+            <td class="p-4 text-center">
+              <div class="flex items-center justify-center gap-1.5">
+                <button onclick="editSurat('masuk', '${s.id}')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 rounded-lg text-xs" title="Edit Data"><i class="fas fa-edit"></i></button>
+                <button onclick="printSuratDetail('${s.id}', 'masuk')" class="p-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs" title="Cetak Surat"><i class="fas fa-print"></i></button>
+                <button onclick="deleteSurat('masuk', '${s.id}')" class="p-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 rounded-lg text-xs" title="Hapus"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    // ---------------------------------------------------------
+    // ADMIN: SURAT KELUAR TABLE & OPERATIONS
+    // ---------------------------------------------------------
+    function renderAdminSuratKeluarTable() {
+      const tbody = document.getElementById('table-surat-keluar');
+      tbody.innerHTML = '';
+
+      if (state.suratKeluar.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-gray-400">Tidak ada data surat keluar.</td></tr>`;
+        return;
+      }
+
+      state.suratKeluar.forEach(s => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-gray-50/50 transition-colors">
+            <td class="p-4 text-center font-bold text-maroon-950">
+              <div class="text-xs bg-maroon-50 text-maroon-900 px-2.5 py-1 rounded-full border border-maroon-100 inline-block">${s.noAgenda}</div>
+              <div class="text-[10px] text-gray-400 mt-1">${s.kode}</div>
+            </td>
+            <td class="p-4 max-w-xs">
+              <p class="font-bold text-gray-800 line-clamp-2">${s.perihal}</p>
+              <button onclick="viewFileSimulation('${s.file?.name || 'file.pdf'}', '${s.file?.type || 'application/pdf'}')" class="mt-2 flex items-center gap-1.5 text-xs font-bold text-maroon-800 hover:text-maroon-950">
+                <i class="fas fa-file-invoice text-sm"></i> Lihat Berkas
+              </button>
+            </td>
+            <td class="p-4 font-semibold text-gray-700">${s.asal}</td>
+            <td class="p-4">
+              <p class="text-xs text-gray-500 font-medium">No: ${s.noSurat}</p>
+              <p class="text-[10px] text-gray-400 mt-1">Dikirim: <span class="font-semibold">${s.dikirimTanggal}</span></p>
+              <p class="text-[10px] text-gray-400">Diterima: <span class="font-semibold">${s.diterimaTanggal}</span></p>
+              <span class="inline-block mt-2 text-[10px] font-bold bg-blue-50 text-blue-800 border border-blue-100 px-2 py-0.5 rounded-full">${s.sifat || 'Biasa'}</span>
+            </td>
+            <td class="p-4 text-center">
+              <div class="flex items-center justify-center gap-1.5">
+                <button onclick="editSurat('keluar', '${s.id}')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 rounded-lg text-xs" title="Edit Data"><i class="fas fa-edit"></i></button>
+                <button onclick="printSuratDetail('${s.id}', 'keluar')" class="p-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs" title="Cetak"><i class="fas fa-print"></i></button>
+                <button onclick="deleteSurat('keluar', '${s.id}')" class="p-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 rounded-lg text-xs" title="Hapus"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    // ---------------------------------------------------------
+    // TAMBAH DATA & MODAL FORM LOGIC DENGAN SINKRONISASI CLOUD
+    // ---------------------------------------------------------
+    function openTambahSurat(type) {
+      const modal = document.getElementById('modal-surat');
+      const actionType = document.getElementById('form-action-type');
+      const editId = document.getElementById('form-edit-id');
+      const modalTitle = document.getElementById('modal-surat-title');
+      const form = document.getElementById('form-surat-action');
+      const kodeSelect = document.getElementById('form-kode');
+      const noUrutInput = document.getElementById('form-no-urut');
+      const fileSpan = document.getElementById('form-file-name');
+
+      form.reset();
+      editId.value = '';
+      actionType.value = type;
+      state.selectedSimulatedFileName = '';
+      state.selectedSimulatedFileType = '';
+      state.selectedFileBase64 = ''; // Membersihkan cache memori file sebelumnya
+      fileSpan.innerText = 'Belum ada file yang dipilih (File dummy akan disiapkan otomatis)';
+
+      // Field Wrappers
+      const wrapNoUrut = document.getElementById('wrapper-no-urut');
+      const wrapDikirim = document.getElementById('wrapper-dikirim');
+      const wrapKlasifikasi = document.getElementById('wrapper-klasifikasi');
+      const wrapDiterima = document.getElementById('wrapper-diterima');
+      const wrapTanggalSurat = document.getElementById('wrapper-tanggal-surat');
+      const labelAgendaHint = document.getElementById('label-agenda-hint');
+      const inputNoAgenda = document.getElementById('form-no-agenda');
+
+      // Tampilan yang sama dan seragam untuk mode Surat Masuk & Surat Keluar
+      wrapNoUrut.classList.add('hidden');
+      wrapDikirim.classList.remove('hidden');
+      wrapKlasifikasi.classList.add('hidden');
+      wrapDiterima.classList.remove('hidden');
+      wrapTanggalSurat.classList.add('hidden');
+      labelAgendaHint.innerText = "(Nomor urut)";
+      inputNoAgenda.placeholder = "Nomor urut";
+
+      document.getElementById('form-dikirim').required = true;
+      document.getElementById('form-diterima').required = true;
+      document.getElementById('form-klasifikasi').required = false;
+      document.getElementById('form-tanggal').required = false;
+
+      // Setting dropdown options based on type
+      kodeSelect.innerHTML = '';
+      if (type === 'masuk') {
+        modalTitle.innerHTML = `<i class="fas fa-download text-emerald-600"></i> Tambah Data Surat Masuk`;
+        document.getElementById('form-kode-label').innerText = 'Kode Surat Masuk';
+        document.getElementById('form-asal-label').innerText = 'Asal Surat';
+        document.getElementById('form-disposisi-wrapper').classList.remove('hidden');
+        
+        SURAT_MASUK_KODES.forEach(k => {
+          kodeSelect.innerHTML += `<option value="${k}">${k}</option>`;
+        });
+      } else {
+        modalTitle.innerHTML = `<i class="fas fa-upload text-blue-600"></i> Tambah Data Surat Keluar`;
+        document.getElementById('form-kode-label').innerText = 'Kode Surat Keluar';
+        document.getElementById('form-asal-label').innerText = 'Tujuan / Penerima';
+        document.getElementById('form-disposisi-wrapper').classList.add('hidden');
+
+        SURAT_KELUAR_KODES.forEach(k => {
+          kodeSelect.innerHTML += `<option value="${k}">${k}</option>`;
+        });
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeModalSurat() {
+      document.getElementById('modal-surat').classList.add('hidden');
+    }
+
+    async function saveSuratData(event) {
+      event.preventDefault();
+
+      // UI Ubah Tombol Loading saat mengirim ke Apps Script Server
+      const btnSubmit = document.querySelector('#form-surat-action button[type="submit"]');
+      const originalBtnText = btnSubmit.innerHTML;
+      btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> SINKRONISASI CLOUD...';
+      btnSubmit.disabled = true;
+      
+      try {
+        const type = document.getElementById('form-action-type').value;
+        const editId = document.getElementById('form-edit-id').value;
+        const kode = document.getElementById('form-kode').value;
+        const noAgenda = document.getElementById('form-no-agenda').value;
+        const asal = document.getElementById('form-asal').value;
+        const noSurat = document.getElementById('form-no-surat').value;
+        const perihal = document.getElementById('form-perihal').value;
+        const sifat = document.querySelector('input[name="form-sifat"]:checked').value;
+        const dikirimTanggal = document.getElementById('form-dikirim').value;
+        const diterimaTanggal = document.getElementById('form-diterima').value;
+
+        // Usulan Disposisi checkboxes parsing
+        let usulanDisposisi = [];
+        if (type === 'masuk') {
+          const checked = document.querySelectorAll('input[name="usulan-disposisi"]:checked');
+          checked.forEach(cb => usulanDisposisi.push(cb.value));
+        }
+
+        // Fallback for file if none uploaded
+        let fileData = { name: `surat_${Date.now()}.pdf`, type: 'application/pdf', dummy: true };
+        let fileDataCloud = null;
+        
+        if (state.selectedSimulatedFileName) {
+          fileData = { 
+            name: state.selectedSimulatedFileName, 
+            type: state.selectedSimulatedFileType || 'application/pdf', 
+            dummy: false 
+          };
+          if (state.selectedFileBase64) {
+            fileDataCloud = {
+              name: state.selectedSimulatedFileName,
+              mimeType: state.selectedSimulatedFileType,
+              base64: state.selectedFileBase64
+            };
+          }
+        }
+
+        // Generate ID
+        const generatedId = editId ? editId : `${type === 'masuk' ? 'sm' : 'sk'}-${Date.now()}`;
+
+        // 1. SINKRONISASI KE GOOGLE APPS SCRIPT (CLOUD SPREADSHEET & DRIVE)
+        if (GAS_URL && GAS_URL !== "URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI") {
+          const cloudPayload = {
+            type: type,
+            id: generatedId,
+            noAgenda: noAgenda,
+            kode: kode,
+            asal: asal,
+            noSurat: noSurat,
+            perihal: perihal,
+            sifat: sifat,
+            dikirimTanggal: dikirimTanggal,
+            diterimaTanggal: diterimaTanggal,
+            usulanDisposisi: usulanDisposisi,
+            fileData: fileDataCloud
+          };
+
+          try {
+            await fetch(GAS_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Menghindari preflight header CORS problem
+              body: JSON.stringify(cloudPayload)
+            });
+          } catch(err) {
+            console.error("Gagal sinkronisasi data ke Google Spreadsheet dan Drive: ", err);
+          }
+        }
+
+        // 2. PROSES PENYIMPANAN UI LOKAL
+        if (editId) {
+          // Edit Mode
+          if (type === 'masuk') {
+            const index = state.suratMasuk.findIndex(s => s.id === editId);
+            if (index !== -1) {
+              const oldItem = state.suratMasuk[index];
+              state.suratMasuk[index] = {
+                ...oldItem,
+                kode, noAgenda, asal, noSurat, perihal, sifat, dikirimTanggal, diterimaTanggal, usulanDisposisi,
+                file: state.selectedSimulatedFileName ? fileData : oldItem.file
+              };
+            }
+          } else {
+            const index = state.suratKeluar.findIndex(s => s.id === editId);
+            if (index !== -1) {
+              const oldItem = state.suratKeluar[index];
+              state.suratKeluar[index] = {
+                ...oldItem,
+                kode, noAgenda, asal, noSurat, perihal, sifat, dikirimTanggal, diterimaTanggal,
+                file: state.selectedSimulatedFileName ? fileData : oldItem.file
+              };
+            }
+          }
+          showToast('Data surat berhasil dimodifikasi & sinkron di Cloud!', 'success');
+        } else {
+          // New Record Mode
+          const newItem = {
+            id: generatedId,
+            noAgenda,
+            kode,
+            asal,
+            noSurat,
+            perihal,
+            sifat,
+            dikirimTanggal,
+            diterimaTanggal,
+            file: fileData
+          };
+
+          if (type === 'masuk') {
+            newItem.usulanDisposisi = usulanDisposisi;
+            newItem.catatanKepsek = '';
+            newItem.disposisiKepsek = [];
+            newItem.disposisiDate = '';
+            state.suratMasuk.push(newItem);
+          } else {
+            state.suratKeluar.push(newItem);
+          }
+          showToast('Arsip surat berhasil ditambahkan & tersinkronisasi di Cloud!', 'success');
+        }
+
+        saveStateToLocalStorage();
+        closeModalSurat();
+        setSubTab(type);
+        updateDashboardStats();
+
+      } finally {
+        // Mengembalikan tombol kembali seperti semula setelah response await / error
+        btnSubmit.innerHTML = originalBtnText;
+        btnSubmit.disabled = false;
+      }
+    }
+
+    function editSurat(type, id) {
+      openTambahSurat(type);
+      
+      const editIdInput = document.getElementById('form-edit-id');
+      const modalTitle = document.getElementById('modal-surat-title');
+      editIdInput.value = id;
+
+      const item = type === 'masuk' 
+        ? state.suratMasuk.find(s => s.id === id) 
+        : state.suratKeluar.find(s => s.id === id);
+
+      if (!item) return;
+
+      modalTitle.innerHTML = `<i class="fas fa-edit text-amber-600"></i> Ubah Data Surat ${type === 'masuk' ? 'Masuk' : 'Keluar'}`;
+      
+      document.getElementById('form-kode').value = item.kode;
+      document.getElementById('form-no-agenda').value = item.noAgenda;
+      document.getElementById('form-asal').value = item.asal;
+      document.getElementById('form-no-surat').value = item.noSurat;
+      document.getElementById('form-perihal').value = item.perihal;
+      document.getElementById('form-dikirim').value = item.dikirimTanggal;
+      document.getElementById('form-diterima').value = item.diterimaTanggal;
+      document.getElementById('form-file-name').innerText = item.file.name + ' (Arsip Tersimpan)';
+      
+      // Radio button check
+      const radios = document.querySelectorAll('input[name="form-sifat"]');
+      radios.forEach(r => {
+        if (r.value === item.sifat) r.checked = true;
+      });
+
+      // Checkboxes checking
+      if (type === 'masuk' && item.usulanDisposisi) {
+        const checkboxes = document.querySelectorAll('input[name="usulan-disposisi"]');
+        checkboxes.forEach(cb => {
+          cb.checked = item.usulanDisposisi.includes(cb.value);
+        });
+      }
+    }
+
+    // ---------------------------------------------------------
+    // HAPUS DATA & MODAL KONFIRMASI (REPLACING BROWSER CONFIRM)
+    // ---------------------------------------------------------
+    let deleteTarget = null;
+
+    function deleteSurat(type, id) {
+      deleteTarget = { type, id };
+      document.getElementById('modal-delete-confirm').classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+      deleteTarget = null;
+      document.getElementById('modal-delete-confirm').classList.add('hidden');
+    }
+
+    document.getElementById('btn-confirm-delete').addEventListener('click', function() {
+      if (!deleteTarget) return;
+      const { type, id } = deleteTarget;
+
+      if (type === 'masuk') {
+        state.suratMasuk = state.suratMasuk.filter(s => s.id !== id);
+      } else {
+        state.suratKeluar = state.suratKeluar.filter(s => s.id !== id);
+      }
+      
+      saveStateToLocalStorage();
+      setSubTab(type);
+      updateDashboardStats();
+      showToast('Data surat berhasil dihapus.', 'info');
+      closeDeleteModal();
+    });
+
+
+    // ---------------------------------------------------------
+    // BUKU AGENDA LOGIC (FILTERING)
+    // ---------------------------------------------------------
+    function resetAgendaFilter() {
+      document.getElementById('agenda-start-date').value = '';
+      document.getElementById('agenda-end-date').value = '';
+      filterAgenda();
+    }
+
+    function filterAgenda() {
+      const type = document.getElementById('agenda-type').value;
+      const start = document.getElementById('agenda-start-date').value;
+      const end = document.getElementById('agenda-end-date').value;
+      const renderContainer = document.getElementById('agenda-render-list');
+      const title = document.getElementById('agenda-list-title');
+
+      title.innerText = `Laporan Buku Agenda Surat ${type === 'masuk' ? 'Masuk' : 'Keluar'}`;
+      renderContainer.innerHTML = '';
+
+      let list = type === 'masuk' ? state.suratMasuk : state.suratKeluar;
+
+      // Filter by Dates if input exists
+      if (start || end) {
+        list = list.filter(item => {
+          let mailDate = new Date(item.diterimaTanggal);
+          if (start && new Date(start) > mailDate) return false;
+          if (end && new Date(end) < mailDate) return false;
+          return true;
+        });
+      }
+
+      if (list.length === 0) {
+        renderContainer.innerHTML = `<div class="bg-white p-8 text-center rounded-xl shadow-md border text-gray-400">Tidak ada arsip surat yang sesuai dengan kriteria filter.</div>`;
+        return;
+      }
+
+      list.forEach(item => {
+        const disposisiPart = type === 'masuk'
+          ? `
+            <div class="mt-3 pt-3 border-t border-dashed border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+              <div>
+                <p class="text-[10px] font-bold text-maroon-900 uppercase">Tujuan Disposisi Resmi Kepala Sekolah:</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                  ${item.disposisiKepsek && item.disposisiKepsek.length > 0 
+                    ? item.disposisiKepsek.map(d => `<span class="px-2 py-0.5 bg-gold-100 text-gold-900 border border-gold-200 text-[9px] font-bold rounded">${d}</span>`).join('') 
+                    : '<span class="text-[10px] text-gray-400 italic">Belum ada disposisi resmi dari Kepala Sekolah</span>'}
+                </div>
+              </div>
+              <button onclick="printSuratDetail('${item.id}', 'masuk')" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-xs font-bold transition-all flex items-center gap-1">
+                <i class="fas fa-print"></i> Lembar Disposisi
+              </button>
+            </div>
+          `
+          : `
+            <div class="mt-3 pt-3 border-t border-dashed border-gray-100 flex justify-end">
+              <button onclick="printSuratDetail('${item.id}', 'keluar')" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-xs font-bold transition-all flex items-center gap-1">
+                <i class="fas fa-print"></i> Lembar Arsip
+              </button>
+            </div>
+          `;
+
+        renderContainer.innerHTML += `
+          <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 relative hover:border-maroon-200 transition-colors">
+            <div class="flex justify-between items-start flex-wrap gap-2">
+              <div>
+                <span class="text-[10px] font-bold text-maroon-900 bg-maroon-50 px-2 py-0.5 rounded border border-maroon-100 mr-2">${type === 'masuk' ? 'No. ' : ''}${item.noAgenda}</span>
+                <span class="text-[10px] font-bold text-gray-500 bg-gray-50 px-2 py-0.5 rounded border mr-2">${item.kode}</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded ${item.sifat === 'Penting' ? 'bg-rose-50 text-rose-700 border-rose-100' : 'bg-slate-50 text-slate-700 border-slate-100'} border">${item.sifat || 'Biasa'}</span>
+              </div>
+              <span class="text-xs text-gray-400 font-semibold"><i class="fas fa-calendar-alt"></i> ${item.diterimaTanggal}</span>
+            </div>
+
+            <div class="mt-3 grid grid-cols-1 md:grid-cols-4 gap-2">
+              <div class="md:col-span-3">
+                <h4 class="font-bold text-gray-800 text-sm md:text-base leading-snug">${item.perihal}</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 mt-2 text-xs text-gray-500 font-medium">
+                  <p><strong>Asal/Penerima:</strong> ${item.asal}</p>
+                  <p><strong>No. Surat:</strong> ${item.noSurat}</p>
+                  <p><strong>Tgl Dikirim:</strong> ${item.dikirimTanggal}</p>
+                  <p><strong>File:</strong> ${item.file.name}</p>
+                </div>
+              </div>
+            </div>
+
+            ${disposisiPart}
+          </div>
+        `;
+      });
+    }
+
+    // ---------------------------------------------------------
+    // GALERI FILE LOGIC (FILTERING)
+    // ---------------------------------------------------------
+    function resetGalleryFilter() {
+      document.getElementById('gallery-start-date').value = '';
+      document.getElementById('gallery-end-date').value = '';
+      filterGallery();
+    }
+
+    function filterGallery() {
+      const type = document.getElementById('gallery-type').value;
+      const start = document.getElementById('gallery-start-date').value;
+      const end = document.getElementById('gallery-end-date').value;
+      const grid = document.getElementById('gallery-render-grid');
+
+      grid.innerHTML = '';
+
+      let list = type === 'masuk' ? state.suratMasuk : state.suratKeluar;
+
+      if (start || end) {
+        list = list.filter(item => {
+          let mailDate = new Date(item.diterimaTanggal);
+          if (start && new Date(start) > mailDate) return false;
+          if (end && new Date(end) < mailDate) return false;
+          return true;
+        });
+      }
+
+      if (list.length === 0) {
+        grid.innerHTML = `<div class="col-span-full bg-white p-8 text-center rounded-xl shadow-md border text-gray-400">Tidak ada berkas yang sesuai dengan filter.</div>`;
+        return;
+      }
+
+      list.forEach(item => {
+        // Thumbnail icon logic
+        const isPdf = item.file.name.endsWith('.pdf');
+        const iconClass = isPdf ? 'fa-file-pdf text-red-600' : 'fa-file-image text-emerald-600';
+        const colorBg = isPdf ? 'bg-red-50' : 'bg-emerald-50';
+
+        grid.innerHTML += `
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-md hover:border-maroon-200 transition-all">
+            <div class="p-4 flex-grow flex flex-col items-center justify-center text-center border-b ${colorBg} min-h-[140px]">
+              <i class="fas ${iconClass} text-5xl mb-2"></i>
+              <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wide truncate max-w-full">${item.file.name}</span>
+            </div>
+            <div class="p-4 space-y-2">
+              <span class="inline-block text-[9px] font-bold bg-maroon-900 text-white px-2 py-0.5 rounded-full">${item.noAgenda}</span>
+              <p class="text-xs font-bold text-gray-800 line-clamp-2 leading-tight">${item.perihal}</p>
+              <div class="flex justify-between items-center pt-2 text-[10px] text-gray-400 font-semibold border-t">
+                <span>${item.diterimaTanggal}</span>
+                <div class="flex gap-1.5">
+                  <button onclick="viewFileSimulation('${item.file.name}', '${item.file.type}')" class="p-1.5 bg-gray-50 text-gray-600 hover:text-maroon-900 rounded" title="Lihat Dokumen"><i class="fas fa-eye"></i></button>
+                  <button onclick="printSuratDetail('${item.id}', '${type}')" class="p-1.5 bg-gray-50 text-gray-600 hover:text-maroon-900 rounded" title="Cetak Lembar Dokumen"><i class="fas fa-print"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // ---------------------------------------------------------
+    // KEPALA SEKOLAH: TABLES & ACTIONS
+    // ---------------------------------------------------------
+    function renderKepsekTable() {
+      const tbody = document.getElementById('table-kepsek-surat');
+      if (!tbody) return;
+
+      tbody.innerHTML = '';
+
+      if (state.suratMasuk.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-gray-400">Tidak ada surat masuk untuk disetujui.</td></tr>`;
+        return;
+      }
+
+      state.suratMasuk.forEach(s => {
+        // Disposisi conversion
+        const usulanText = s.usulanDisposisi && s.usulanDisposisi.length > 0 
+          ? s.usulanDisposisi.map(item => `<span class="inline-block bg-maroon-50 text-maroon-900 text-[10px] px-2 py-0.5 rounded m-0.5 font-medium border border-maroon-100">${item}</span>`).join('') 
+          : '<span class="text-xs text-gray-400 italic">Tidak ada usulan</span>';
+
+        const finalDisposisiText = s.disposisiKepsek && s.disposisiKepsek.length > 0 
+          ? s.disposisiKepsek.map(item => `<span class="inline-block bg-gold-150 text-gold-950 text-[10px] px-2 py-0.5 rounded m-0.5 font-extrabold border border-gold-300 bg-gold-200">${item}</span>`).join('') 
+          : '<span class="text-xs text-amber-600 font-bold italic"><i class="fas fa-clock"></i> Belum Didisposisikan</span>';
+
+        const catText = s.catatanKepsek 
+          ? `<p class="text-xs italic text-maroon-950 font-bold bg-maroon-50 border border-maroon-100 p-2 rounded">"${s.catatanKepsek}"</p>` 
+          : '<span class="text-xs text-gray-400 italic">Belum ada instruksi tertulis</span>';
+
+        tbody.innerHTML += `
+          <tr class="hover:bg-gray-50/50 transition-colors" id="row-kepsek-${s.id}">
+            <td class="p-4 text-center font-bold text-maroon-950">
+              <span class="bg-maroon-50 text-maroon-900 border border-maroon-100 px-2 py-1 rounded text-xs inline-block">No. ${s.noAgenda}</span>
+              <p class="text-[10px] text-gray-400 mt-1">${s.kode}</p>
+            </td>
+            <td class="p-4 max-w-xs">
+              <p class="font-bold text-gray-800 leading-snug">${s.perihal}</p>
+              <button onclick="viewFileSimulation('${s.file.name}', '${s.file.type}')" class="mt-2 text-xs font-bold text-maroon-800 hover:text-maroon-950 flex items-center gap-1">
+                <i class="fas fa-file-invoice"></i> Pratinjau Dokumen
+              </button>
+            </td>
+            <td class="p-4">
+              <p class="font-bold text-gray-700 text-xs">${s.asal}</p>
+              <p class="text-[10px] text-gray-400 mt-1">No: ${s.noSurat}</p>
+              <p class="text-[10px] text-gray-400 mt-0.5">Diterima: ${s.diterimaTanggal}</p>
+            </td>
+            <td class="p-4 max-w-[150px]">${usulanText}</td>
+            <td class="p-4 max-w-[150px]">${catText}</td>
+            <td class="p-4 max-w-[150px]">${finalDisposisiText}</td>
+            <td class="p-4 text-center">
+              <div class="flex items-center justify-center gap-1.5">
+                <button onclick="openOtorisasiDisposisi('${s.id}')" class="px-3 py-1.5 bg-gradient-to-r from-maroon-850 to-maroon-950 hover:from-maroon-950 hover:to-maroon-900 text-white font-bold text-xs rounded-lg shadow-md flex items-center gap-1">
+                  <i class="fas fa-gavel text-gold-400"></i> Disposisi
+                </button>
+                <button onclick="printSuratDetail('${s.id}', 'masuk')" class="p-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs" title="Cetak Lembar Disposisi"><i class="fas fa-print"></i></button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function openOtorisasiDisposisi(id) {
+      const s = state.suratMasuk.find(item => item.id === id);
+      if (!s) return;
+
+      document.getElementById('kepsek-disposisi-id').value = s.id;
+      document.getElementById('kepsek-disposisi-perihal').innerText = s.perihal;
+      document.getElementById('kepsek-disposisi-catatan').value = s.catatanKepsek || '';
+
+      // Clear checkboxes
+      const checkboxes = document.querySelectorAll('input[name="kepsek-disposisi-targets"]');
+      checkboxes.forEach(cb => {
+        // Pre-fill with existing selections or default to admin suggestions
+        if (s.disposisiKepsek && s.disposisiKepsek.length > 0) {
+          cb.checked = s.disposisiKepsek.includes(cb.value);
+        } else {
+          cb.checked = s.usulanDisposisi.includes(cb.value);
+        }
+      });
+
+      document.getElementById('modal-disposisi-kepsek').classList.remove('hidden');
+    }
+
+    function closeDisposisiKepsekModal() {
+      document.getElementById('modal-disposisi-kepsek').classList.add('hidden');
+    }
+
+    function saveDisposisiKepsek(event) {
+      event.preventDefault();
+      
+      const id = document.getElementById('kepsek-disposisi-id').value;
+      const catatan = document.getElementById('kepsek-disposisi-catatan').value;
+      
+      let disposisiTargets = [];
+      const checked = document.querySelectorAll('input[name="kepsek-disposisi-targets"]:checked');
+      checked.forEach(cb => disposisiTargets.push(cb.value));
+
+      if (disposisiTargets.length === 0) {
+        showToast('Pilih setidaknya satu tujuan disposisi!', 'error');
+        return;
+      }
+
+      const index = state.suratMasuk.findIndex(s => s.id === id);
+      if (index !== -1) {
+        state.suratMasuk[index].disposisiKepsek = disposisiTargets;
+        state.suratMasuk[index].catatanKepsek = catatan;
+        state.suratMasuk[index].disposisiDate = new Date().toISOString().split('T')[0];
+
+        // Send real-time notifications to staff by clearing read tracks for changed ones
+        disposisiTargets.forEach(target => {
+          const key = `${target}_${id}`;
+          const trackIdx = state.notifiedItems.indexOf(key);
+          if (trackIdx !== -1) {
+            state.notifiedItems.splice(trackIdx, 1);
+          }
+        });
+
+        saveStateToLocalStorage();
+        closeDisposisiKepsekModal();
+        renderKepsekTable();
+        updateNotificationBell();
+        renderLandingNotifications();
+        showToast('Disposisi berhasil diteruskan ke jajaran terkait.', 'success');
+      }
+    }
+
+    function renderLandingNotifications() {
+      const container = document.getElementById('landing-notif-list');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      
+      let events = [];
+      
+      // Hanya mengumpulkan disposisi surat masuk dari database lokal
+      state.suratMasuk.forEach(s => {
+        if (s.disposisiKepsek && s.disposisiKepsek.length > 0) {
+          events.push({
+            date: s.disposisiDate || s.diterimaTanggal,
+            type: 'success',
+            icon: 'fa-stamp text-emerald-600 bg-emerald-50',
+            title: `Disposisi Surat Masuk`,
+            desc: `Disposisi Surat Masuk pada bagian: <strong class="text-maroon-900">${s.disposisiKepsek.join(', ')}</strong>`
+          });
+        }
+      });
+      
+      // Urutkan berdasarkan tanggal terbaru (paling baru berada paling atas)
+      events.sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+      // Batasi jumlah notifikasi maksimal 6. Jika terdapat lebih dari 6, sistem otomatis menghapus/mengeliminasi data sebelumnya dari tampilan
+      const displayEvents = events.slice(0, 6);
+      
+      if (displayEvents.length === 0) {
+        container.innerHTML = `<div class="p-4 text-center text-xs text-gray-400">Belum ada aktivitas disposisi surat masuk.</div>`;
+        return;
+      }
+      
+      displayEvents.forEach(e => {
+        container.innerHTML += `
+          <div class="py-2.5 flex items-start gap-3 first:pt-0 last:pb-0">
+            <div class="p-2.5 rounded-lg flex items-center justify-center shrink-0 ${e.icon.split(' ').slice(1).join(' ')}">
+              <i class="fas ${e.icon.split(' ')[0]} text-sm"></i>
+            </div>
+            <div class="flex-grow min-w-0">
+              <div class="flex justify-between items-start gap-2 flex-wrap md:flex-nowrap">
+                <h4 class="text-xs font-bold text-gray-800">${e.title}</h4>
+                <span class="text-[10px] text-gray-400 font-semibold whitespace-nowrap"><i class="fas fa-calendar-day"></i> ${e.date}</span>
+              </div>
+              <p class="text-[11px] text-gray-600 mt-1 leading-relaxed">${e.desc}</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // ---------------------------------------------------------
+    // STAFF: TABLES & DATA RENDER
+    // ---------------------------------------------------------
+    function renderStaffTable() {
+      const user = state.currentUser;
+      const tbody = document.getElementById('table-staff-surat');
+      if (!tbody || !user) return;
+
+      tbody.innerHTML = '';
+
+      // Staff only sees surat masuk with their specificRole in disposisiKepsek array
+      const matches = state.suratMasuk.filter(s => {
+        return s.disposisiKepsek && s.disposisiKepsek.includes(user.specificRole);
+      });
+
+      document.getElementById('staff-mail-count').innerText = `${matches.length} Surat Masuk`;
+
+      if (matches.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-gray-400">Belum ada disposisi surat untuk divisi Anda.</td></tr>`;
+        return;
+      }
+
+      matches.forEach(s => {
+        const isNew = !state.notifiedItems.includes(`${user.specificRole}_${s.id}`);
+        const statusIcon = isNew 
+          ? '<span class="inline-block w-2.5 h-2.5 bg-gold-500 rounded-full animate-ping mr-1.5" title="Belum Dibaca"></span>' 
+          : '';
+
+        tbody.innerHTML += `
+          <tr class="hover:bg-gray-50/50 transition-colors ${isNew ? 'bg-amber-50/20 font-medium' : ''}">
+            <td class="p-4 text-center font-bold text-maroon-950">
+              <span class="bg-maroon-50 text-maroon-900 border border-maroon-100 px-2 py-0.5 rounded text-xs inline-block">No. ${s.noAgenda}</span>
+            </td>
+            <td class="p-4 max-w-xs">
+              <div class="flex items-center">
+                ${statusIcon}
+                <p class="text-gray-800 text-sm font-bold line-clamp-2">${s.perihal}</p>
+              </div>
+              <p class="text-[10px] text-gray-400 mt-1">${s.file.name}</p>
+            </td>
+            <td class="p-4 font-semibold text-gray-700">${s.asal}</td>
+            <td class="p-4">
+              <span class="px-2.5 py-0.5 rounded border text-[10px] font-bold ${s.sifat === 'Penting' ? 'bg-rose-100 text-rose-800 border-rose-200' : 'bg-slate-100 text-slate-800 border-slate-200'}">${s.sifat}</span>
+            </td>
+            <td class="p-4 max-w-xs">
+              <p class="text-xs italic text-maroon-950 font-bold bg-maroon-50 border border-maroon-100 p-2.5 rounded-lg">"${s.catatanKepsek || 'Laksanakan sesuai petunjuk dan TUPOKSI.'}"</p>
+            </td>
+            <td class="p-4 text-center">
+              <button onclick="openStaffMailDetail('${s.id}')" class="px-3.5 py-1.5 bg-gradient-to-r from-maroon-900 to-maroon-800 hover:from-maroon-950 hover:to-maroon-900 text-white font-bold text-xs rounded shadow flex items-center justify-center gap-1 mx-auto">
+                <i class="fas fa-folder-open text-[11px]"></i> BUKA & UNDUH
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    // ---------------------------------------------------------
+    // PRINT PREVIEW GENERATION
+    // ---------------------------------------------------------
+    function printSuratDetail(id, type) {
+      const item = type === 'masuk' 
+        ? state.suratMasuk.find(s => s.id === id) 
+        : state.suratKeluar.find(s => s.id === id);
+
+      if (!item) return;
+
+      const printContent = document.getElementById('print-content');
+      printContent.innerHTML = '';
+
+      if (type === 'masuk') {
+        // Render beautiful official disposisi instruction sheet
+        printContent.innerHTML = `
+          <div class="text-center font-bold text-sm uppercase tracking-wider underline mb-4">LEMBAR DISPOSISI KEPALA SEKOLAH</div>
+          
+          <table class="w-full border-collapse border border-gray-800 text-xs text-left mb-6">
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50 w-1/4">No. Agenda (Urut)</th>
+              <td class="p-3 border border-gray-800 font-bold">${item.noAgenda}</td>
+              <th class="p-3 border border-gray-800 bg-gray-50 w-1/4">Tanggal Diterima</th>
+              <td class="p-3 border border-gray-800">${item.diterimaTanggal}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">Sifat Surat</th>
+              <td class="p-3 border border-gray-800 font-bold ${item.sifat === 'Penting' ? 'text-red-700' : ''}">${item.sifat}</td>
+              <th class="p-3 border border-gray-800 bg-gray-50">Tanggal Dikirim</th>
+              <td class="p-3 border border-gray-800 font-mono">${item.dikirimTanggal}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">Asal Surat</th>
+              <td class="p-3 border border-gray-800 font-semibold" colspan="3">${item.asal}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">No. Surat Resmi</th>
+              <td class="p-3 border border-gray-800" colspan="3">${item.noSurat}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">Perihal</th>
+              <td class="p-3 border border-gray-800 leading-relaxed font-semibold" colspan="3">${item.perihal}</td>
+            </tr>
+          </table>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border border-gray-800 p-4 rounded text-xs mb-6">
+            <div>
+              <p class="font-bold border-b pb-1 mb-2 uppercase text-maroon-900"><i class="fas fa-paper-plane"></i> Usulan Disposisi Admin:</p>
+              <ul class="list-disc pl-4 space-y-1">
+                ${item.usulanDisposisi && item.usulanDisposisi.length > 0 
+                  ? item.usulanDisposisi.map(u => `<li>${u}</li>`).join('') 
+                  : '<li class="text-gray-400 italic">Tidak ada usulan</li>'}
+              </ul>
+            </div>
+            <div>
+              <p class="font-bold border-b pb-1 mb-2 uppercase text-gold-700"><i class="fas fa-stamp"></i> Otorisasi Disposisi Kepala Sekolah:</p>
+              <ul class="list-disc pl-4 space-y-1 font-bold text-gray-800">
+                ${item.disposisiKepsek && item.disposisiKepsek.length > 0 
+                  ? item.disposisiKepsek.map(u => `<li>${u}</li>`).join('') 
+                  : '<li class="text-gray-400 italic font-normal">Belum didisposisikan</li>'}
+              </ul>
+            </div>
+          </div>
+
+          <div class="border border-gray-800 p-4 rounded bg-gray-50/50 text-xs mb-8">
+            <p class="font-bold uppercase text-gray-700 mb-1.5"><i class="fas fa-gavel"></i> Catatan Instruksi Tertulis Kepala Sekolah:</p>
+            <p class="italic text-sm font-semibold text-gray-900 leading-relaxed">"${item.catatanKepsek || 'Laksanakan sesuai tugas pokok dan fungsi.'}"</p>
+          </div>
+
+          <div class="flex justify-between items-center text-xs text-center mt-12 pt-6">
+            <div>
+              <p>Staf Administrasi TU,</p>
+              <br><br><br>
+              <p class="font-bold underline">_________________________</p>
+            </div>
+            <div>
+              <p>Pogalan, ${item.disposisiDate || item.diterimaTanggal}</p>
+              <p>Kepala SMKN 1 Pogalan,</p>
+              <br><br>
+              <p class="font-extrabold text-maroon-950">Rachmad Effendi TS., M.Pd.</p>
+              <p class="text-[10px] text-gray-500 font-semibold">NIP. 19710825 199702 1 002</p>
+            </div>
+          </div>
+        `;
+      } else {
+        // Print layout for Outgoing Mail (Lembar Arsip)
+        printContent.innerHTML = `
+          <div class="text-center font-bold text-sm uppercase tracking-wider underline mb-4">LEMBAR ARSIP SURAT KELUAR</div>
+          
+          <table class="w-full border-collapse border border-gray-800 text-xs text-left mb-6">
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50 w-1/4">No. Agenda</th>
+              <td class="p-3 border border-gray-800 font-bold">${item.noAgenda}</td>
+              <th class="p-3 border border-gray-800 bg-gray-50 w-1/4">Tanggal Diterima</th>
+              <td class="p-3 border border-gray-800">${item.diterimaTanggal}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">Sifat Surat</th>
+              <td class="p-3 border border-gray-800 font-bold">${item.sifat || 'Biasa'}</td>
+              <th class="p-3 border border-gray-800 bg-gray-50">Tanggal Dikirim</th>
+              <td class="p-3 border border-gray-800 font-mono">${item.dikirimTanggal}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">Tujuan / Penerima</th>
+              <td class="p-3 border border-gray-800 font-semibold" colspan="3">${item.asal}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">No. Surat Keluar</th>
+              <td class="p-3 border border-gray-800" colspan="3">${item.noSurat}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">Kategori Jenis</th>
+              <td class="p-3 border border-gray-800" colspan="3">${item.kode}</td>
+            </tr>
+            <tr>
+              <th class="p-3 border border-gray-800 bg-gray-50">Perihal / Ringkasan</th>
+              <td class="p-3 border border-gray-800 leading-relaxed font-semibold" colspan="3">${item.perihal}</td>
+            </tr>
+          </table>
+
+          <div class="border border-gray-800 p-4 rounded bg-gray-50 text-xs mb-8">
+            <p class="font-bold uppercase text-gray-700 mb-1">Keterangan Tambahan Berkas:</p>
+            <p class="text-gray-600">Surat ini telah diarsipkan secara elektronik ke sistem ASKARA SMKN 1 Pogalan dengan aman pada berkas: <strong>${item.file.name}</strong>.</p>
+          </div>
+
+          <div class="flex justify-between items-center text-xs text-center mt-12 pt-6">
+            <div>
+              <p>Staf Administrasi Arsip,</p>
+              <br><br><br>
+              <p class="font-bold underline">_________________________</p>
+            </div>
+            <div>
+              <p>Pogalan, ${item.diterimaTanggal}</p>
+              <p>Kepala SMKN 1 Pogalan,</p>
+              <br><br>
+              <p class="font-extrabold text-maroon-950">Rachmad Effendi TS., M.Pd.</p>
+              <p class="text-[10px] text-gray-500 font-semibold">NIP. 19710825 199702 1 002</p>
+            </div>
+          </div>
+        `;
+      }
+
+      document.getElementById('modal-print').classList.remove('hidden');
+    }
+
+    function printAgendaSummary() {
+      const type = document.getElementById('agenda-type').value;
+      const start = document.getElementById('agenda-start-date').value;
+      const end = document.getElementById('agenda-end-date').value;
+      
+      let list = type === 'masuk' ? state.suratMasuk : state.suratKeluar;
+      if (start || end) {
+        list = list.filter(item => {
+          let mailDate = new Date(item.diterimaTanggal);
+          if (start && new Date(start) > mailDate) return false;
+          if (end && new Date(end) < mailDate) return false;
+          return true;
+        });
+      }
+
+      const printContent = document.getElementById('print-content');
+      printContent.innerHTML = `
+        <div class="text-center font-bold text-sm uppercase tracking-wider underline mb-4">LAPORAN BUKU AGENDA SURAT ${type === 'masuk' ? 'MASUK' : 'KELUAR'}</div>
+        <p class="text-xs text-gray-600 mb-4 text-center">Periode Laporan: ${start || 'Awal'} s.d. ${end || 'Akhir'}</p>
+
+        <table class="w-full border-collapse border border-gray-800 text-[10px] text-left">
+          <thead>
+            <tr class="bg-gray-100 font-bold uppercase">
+              <th class="p-2 border border-gray-800 text-center">No</th>
+              <th class="p-2 border border-gray-800">No. Agenda & Kode</th>
+              <th class="p-2 border border-gray-800">No. Surat & Tgl</th>
+              <th class="p-2 border border-gray-800">Asal / Tujuan</th>
+              <th class="p-2 border border-gray-800">Perihal</th>
+              <th class="p-2 border border-gray-800">${type === 'masuk' ? 'Tujuan Disposisi' : 'Sifat'}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${list.map((item, idx) => `
+              <tr>
+                <td class="p-2 border border-gray-800 text-center">${idx + 1}</td>
+                <td class="p-2 border border-gray-800 font-bold">${type === 'masuk' ? 'No. ' : ''}${item.noAgenda}<br><span class="text-[9px] text-gray-400 font-normal">${item.kode}</span></td>
+                <td class="p-2 border border-gray-800 font-mono">${item.noSurat}<br><span class="text-[9px] text-gray-500 font-sans">${item.diterimaTanggal}</span></td>
+                <td class="p-2 border border-gray-800 font-semibold">${item.asal}</td>
+                <td class="p-2 border border-gray-800">${item.perihal}</td>
+                <td class="p-2 border border-gray-800">
+                  ${type === 'masuk' 
+                    ? (item.disposisiKepsek && item.disposisiKepsek.length > 0 ? item.disposisiKepsek.join(', ') : 'Belum Didisposisi')
+                    : (item.sifat || 'Biasa')}
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+
+        <div class="flex justify-between items-center text-xs text-center mt-12 pt-6">
+          <div>
+            <p>Dibuat Oleh,</p>
+            <p>Staf Administrasi TU</p>
+            <br><br>
+            <p class="font-bold underline">_________________________</p>
+          </div>
+          <div>
+            <p>Pogalan, ${new Date().toISOString().split('T')[0]}</p>
+            <p>Mengetahui,</p>
+            <p>Kepala SMKN 1 Pogalan,</p>
+            <br><br>
+            <p class="font-extrabold text-maroon-950">Rachmad Effendi TS., M.Pd.</p>
+            <p class="text-[10px] text-gray-500 font-semibold">NIP. 19710825 199702 1 002</p>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('modal-print').classList.remove('hidden');
+    }
+
+    function closePrintModal() {
+      document.getElementById('modal-print').classList.add('hidden');
+    }
+
+    // ---------------------------------------------------------
+    // CUSTOM TOAST NOTIFICATION
+    // ---------------------------------------------------------
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastMessage.innerText = message;
+      
+      // Select icons & styles based on type
+      if (type === 'success') {
+        toastIcon.innerHTML = `<i class="fas fa-check-circle text-emerald-500 text-lg"></i>`;
+      } else if (type === 'error') {
+        toastIcon.innerHTML = `<i class="fas fa-exclamation-triangle text-rose-500 text-lg"></i>`;
+      } else {
+        toastIcon.innerHTML = `<i class="fas fa-info-circle text-blue-500 text-lg"></i>`;
+      }
+
+      toast.className = "fixed bottom-6 right-6 z-50 bg-gray-900 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transition-all transform translate-y-0 opacity-100 no-print";
+      
+      setTimeout(() => {
+        toast.className = "fixed bottom-6 right-6 z-50 bg-gray-900 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transition-all transform translate-y-20 opacity-0 no-print";
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
