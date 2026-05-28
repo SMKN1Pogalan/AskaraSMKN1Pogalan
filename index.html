@@ -945,7 +945,7 @@
     // KONEKSI GOOGLE APPS SCRIPT
     // ---------------------------------------------------------
     // PASTIKAN ANDA MENGISI VARIABEL DI BAWAH INI DENGAN URL WEB APP MILIK ANDA
-    const GAS_URL = "https://script.google.com/macros/s/AKfycby91wMgpTFPMwio40SfAj3LQDdjG0-UKdSWrlqtvAcQn-O6Iwtff8NxtYj1aw_EJf0r/exec";
+    const GAS_URL = "URL_WEB_APP_APPS_SCRIPT_ANDA_DISINI";
 
     // ---------------------------------------------------------
     // ROLE LISTS (CONSTANTS)
@@ -1652,10 +1652,15 @@
               <div class="text-[10px] text-gray-400 mt-1">${s.kode}</div>
             </td>
             <td class="p-4 max-w-xs">
-              <p class="font-bold text-gray-800 line-clamp-2">${s.perihal}</p>
-              <button onclick="viewFileSimulation('${s.file?.name || 'file.pdf'}', '${s.file?.type || 'application/pdf'}')" class="mt-2 flex items-center gap-1.5 text-xs font-bold text-maroon-800 hover:text-maroon-950">
-                <i class="fas fa-file-invoice text-sm"></i> Lihat Lampiran
-              </button>
+              <p class="font-bold text-gray-800 line-clamp-2 mb-2">${s.perihal}</p>
+              <div class="flex flex-wrap items-center gap-2">
+                <button onclick="viewFileSimulation('${s.id}', 'masuk')" class="text-[11px] px-2 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded font-bold flex items-center gap-1 transition-colors">
+                  <i class="fas fa-eye"></i> Preview
+                </button>
+                <button onclick="simulateDownloadFile('${s.file?.name || 'document.pdf'}')" class="text-[11px] px-2 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 rounded font-bold flex items-center gap-1 transition-colors">
+                  <i class="fas fa-download"></i> Unduh
+                </button>
+              </div>
             </td>
             <td class="p-4 font-semibold text-gray-700">${s.asal}</td>
             <td class="p-4">
@@ -1672,7 +1677,7 @@
             <td class="p-4 text-center">
               <div class="flex items-center justify-center gap-1.5">
                 <button onclick="editSurat('masuk', '${s.id}')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 rounded-lg text-xs" title="Edit Data"><i class="fas fa-edit"></i></button>
-                <button onclick="printSuratDetail('${s.id}', 'masuk')" class="p-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs" title="Cetak Surat"><i class="fas fa-print"></i></button>
+                <button onclick="printSuratDetail('${s.id}', 'masuk')" class="p-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs" title="Cetak Disposisi"><i class="fas fa-print"></i></button>
                 <button onclick="deleteSurat('masuk', '${s.id}')" class="p-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 rounded-lg text-xs" title="Hapus"><i class="fas fa-trash-alt"></i></button>
               </div>
             </td>
@@ -1701,10 +1706,15 @@
               <div class="text-[10px] text-gray-400 mt-1">${s.kode}</div>
             </td>
             <td class="p-4 max-w-xs">
-              <p class="font-bold text-gray-800 line-clamp-2">${s.perihal}</p>
-              <button onclick="viewFileSimulation('${s.file?.name || 'file.pdf'}', '${s.file?.type || 'application/pdf'}')" class="mt-2 flex items-center gap-1.5 text-xs font-bold text-maroon-800 hover:text-maroon-950">
-                <i class="fas fa-file-invoice text-sm"></i> Lihat Berkas
-              </button>
+              <p class="font-bold text-gray-800 line-clamp-2 mb-2">${s.perihal}</p>
+              <div class="flex flex-wrap items-center gap-2">
+                <button onclick="viewFileSimulation('${s.id}', 'keluar')" class="text-[11px] px-2 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded font-bold flex items-center gap-1 transition-colors">
+                  <i class="fas fa-eye"></i> Preview
+                </button>
+                <button onclick="simulateDownloadFile('${s.file?.name || 'document.pdf'}')" class="text-[11px] px-2 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 rounded font-bold flex items-center gap-1 transition-colors">
+                  <i class="fas fa-download"></i> Unduh
+                </button>
+              </div>
             </td>
             <td class="p-4 font-semibold text-gray-700">${s.asal}</td>
             <td class="p-4">
@@ -1716,7 +1726,7 @@
             <td class="p-4 text-center">
               <div class="flex items-center justify-center gap-1.5">
                 <button onclick="editSurat('keluar', '${s.id}')" class="p-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 rounded-lg text-xs" title="Edit Data"><i class="fas fa-edit"></i></button>
-                <button onclick="printSuratDetail('${s.id}', 'keluar')" class="p-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs" title="Cetak"><i class="fas fa-print"></i></button>
+                <button onclick="printSuratDetail('${s.id}', 'keluar')" class="p-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs" title="Cetak Lembar"><i class="fas fa-print"></i></button>
                 <button onclick="deleteSurat('keluar', '${s.id}')" class="p-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 rounded-lg text-xs" title="Hapus"><i class="fas fa-trash-alt"></i></button>
               </div>
             </td>
@@ -2153,8 +2163,9 @@
               <div class="flex justify-between items-center pt-2 text-[10px] text-gray-400 font-semibold border-t">
                 <span>${item.diterimaTanggal}</span>
                 <div class="flex gap-1.5">
-                  <button onclick="viewFileSimulation('${item.file.name}', '${item.file.type}')" class="p-1.5 bg-gray-50 text-gray-600 hover:text-maroon-900 rounded" title="Lihat Dokumen"><i class="fas fa-eye"></i></button>
-                  <button onclick="printSuratDetail('${item.id}', '${type}')" class="p-1.5 bg-gray-50 text-gray-600 hover:text-maroon-900 rounded" title="Cetak Lembar Dokumen"><i class="fas fa-print"></i></button>
+                  <button onclick="viewFileSimulation('${item.id}', '${type}')" class="p-1.5 bg-gray-50 text-gray-600 hover:text-emerald-700 rounded transition-colors" title="Preview Dokumen"><i class="fas fa-eye"></i></button>
+                  <button onclick="simulateDownloadFile('${item.file.name}')" class="p-1.5 bg-gray-50 text-gray-600 hover:text-blue-700 rounded transition-colors" title="Unduh Dokumen"><i class="fas fa-download"></i></button>
+                  <button onclick="printSuratDetail('${item.id}', '${type}')" class="p-1.5 bg-gray-50 text-gray-600 hover:text-maroon-900 rounded transition-colors" title="Cetak Lembar Dokumen"><i class="fas fa-print"></i></button>
                 </div>
               </div>
             </div>
@@ -2198,10 +2209,15 @@
               <p class="text-[10px] text-gray-400 mt-1">${s.kode}</p>
             </td>
             <td class="p-4 max-w-xs">
-              <p class="font-bold text-gray-800 leading-snug">${s.perihal}</p>
-              <button onclick="viewFileSimulation('${s.file.name}', '${s.file.type}')" class="mt-2 text-xs font-bold text-maroon-800 hover:text-maroon-950 flex items-center gap-1">
-                <i class="fas fa-file-invoice"></i> Pratinjau Dokumen
-              </button>
+              <p class="font-bold text-gray-800 leading-snug mb-2">${s.perihal}</p>
+              <div class="flex flex-wrap gap-2">
+                <button onclick="viewFileSimulation('${s.id}', 'masuk')" class="text-[11px] px-2 py-1 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800 font-bold rounded flex items-center gap-1 transition-colors">
+                  <i class="fas fa-eye"></i> Preview
+                </button>
+                <button onclick="simulateDownloadFile('${s.file.name}')" class="text-[11px] px-2 py-1 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 font-bold rounded flex items-center gap-1 transition-colors">
+                  <i class="fas fa-download"></i> Unduh
+                </button>
+              </div>
             </td>
             <td class="p-4">
               <p class="font-bold text-gray-700 text-xs">${s.asal}</p>
@@ -2212,11 +2228,13 @@
             <td class="p-4 max-w-[150px]">${catText}</td>
             <td class="p-4 max-w-[150px]">${finalDisposisiText}</td>
             <td class="p-4 text-center">
-              <div class="flex items-center justify-center gap-1.5">
-                <button onclick="openOtorisasiDisposisi('${s.id}')" class="px-3 py-1.5 bg-gradient-to-r from-maroon-850 to-maroon-950 hover:from-maroon-950 hover:to-maroon-900 text-white font-bold text-xs rounded-lg shadow-md flex items-center gap-1">
+              <div class="flex flex-col items-center justify-center gap-2">
+                <button onclick="openOtorisasiDisposisi('${s.id}')" class="w-full px-3 py-2 bg-gradient-to-r from-maroon-850 to-maroon-950 hover:from-maroon-950 hover:to-maroon-900 text-white font-bold text-xs rounded-lg shadow-md flex items-center justify-center gap-1">
                   <i class="fas fa-gavel text-gold-400"></i> Disposisi
                 </button>
-                <button onclick="printSuratDetail('${s.id}', 'masuk')" class="p-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 rounded-lg text-xs" title="Cetak Lembar Disposisi"><i class="fas fa-print"></i></button>
+                <button onclick="printSuratDetail('${s.id}', 'masuk')" class="w-full px-3 py-1.5 bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-600 font-bold text-[10px] rounded-lg shadow-sm flex items-center justify-center gap-1">
+                  <i class="fas fa-print"></i> Cetak Lembar
+                </button>
               </div>
             </td>
           </tr>
@@ -2340,99 +2358,99 @@
     }
 
     // ---------------------------------------------------------
-    // STAFF: TABLES & DATA RENDER
+    // NOTIFICATION & STAFF DETAILS
     // ---------------------------------------------------------
-    function renderStaffTable() {
+    function openStaffMailDetail(id) {
+      toggleNotificationPanel();
+      
+      // Mark as read immediately
       const user = state.currentUser;
-      const tbody = document.getElementById('table-staff-surat');
-      if (!tbody || !user) return;
-
-      tbody.innerHTML = '';
-
-      // Staff only sees surat masuk with their specificRole in disposisiKepsek array
-      const matches = state.suratMasuk.filter(s => {
-        return s.disposisiKepsek && s.disposisiKepsek.includes(user.specificRole);
-      });
-
-      document.getElementById('staff-mail-count').innerText = `${matches.length} Surat Masuk`;
-
-      if (matches.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-gray-400">Belum ada disposisi surat untuk divisi Anda.</td></tr>`;
-        return;
+      const key = `${user.specificRole}_${id}`;
+      if (!state.notifiedItems.includes(key)) {
+        state.notifiedItems.push(key);
+        saveStateToLocalStorage();
+        updateNotificationBell();
+        renderStaffTable();
       }
 
-      matches.forEach(s => {
-        const isNew = !state.notifiedItems.includes(`${user.specificRole}_${s.id}`);
-        const statusIcon = isNew 
-          ? '<span class="inline-block w-2.5 h-2.5 bg-gold-500 rounded-full animate-ping mr-1.5" title="Belum Dibaca"></span>' 
-          : '';
+      // Show File/Instruksi Preview Modal
+      const s = state.suratMasuk.find(item => item.id === id);
+      if (!s) return;
 
-        tbody.innerHTML += `
-          <tr class="hover:bg-gray-50/50 transition-colors ${isNew ? 'bg-amber-50/20 font-medium' : ''}">
-            <td class="p-4 text-center font-bold text-maroon-950">
-              <span class="bg-maroon-50 text-maroon-900 border border-maroon-100 px-2 py-0.5 rounded text-xs inline-block">No. ${s.noAgenda}</span>
-            </td>
-            <td class="p-4 max-w-xs">
-              <div class="flex items-center">
-                ${statusIcon}
-                <p class="text-gray-800 text-sm font-bold line-clamp-2">${s.perihal}</p>
-              </div>
-              <p class="text-[10px] text-gray-400 mt-1">${s.file.name}</p>
-            </td>
-            <td class="p-4 font-semibold text-gray-700">${s.asal}</td>
-            <td class="p-4">
-              <span class="px-2.5 py-0.5 rounded border text-[10px] font-bold ${s.sifat === 'Penting' ? 'bg-rose-100 text-rose-800 border-rose-200' : 'bg-slate-100 text-slate-800 border-slate-200'}">${s.sifat}</span>
-            </td>
-            <td class="p-4 max-w-xs">
-              <p class="text-xs italic text-maroon-950 font-bold bg-maroon-50 border border-maroon-100 p-2.5 rounded-lg">"${s.catatanKepsek || 'Laksanakan sesuai petunjuk dan TUPOKSI.'}"</p>
-            </td>
-            <td class="p-4 text-center">
-              <button onclick="openStaffMailDetail('${s.id}')" class="px-3.5 py-1.5 bg-gradient-to-r from-maroon-900 to-maroon-800 hover:from-maroon-950 hover:to-maroon-900 text-white font-bold text-xs rounded shadow flex items-center justify-center gap-1 mx-auto">
-                <i class="fas fa-folder-open text-[11px]"></i> BUKA & UNDUH
-              </button>
-            </td>
-          </tr>
-        `;
-      });
+      const viewer = document.getElementById('file-viewer-content');
+      document.getElementById('modal-view-file').classList.remove('hidden');
+
+      viewer.innerHTML = `
+        <div class="text-center w-full">
+          <div class="w-16 h-16 bg-maroon-100 text-maroon-800 rounded-full flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-file-invoice text-2xl"></i>
+          </div>
+          <h3 class="font-extrabold text-lg text-maroon-950">Detail Surat Disposisi</h3>
+          <p class="text-xs text-gray-400">No. Agenda: ${s.noAgenda}</p>
+        </div>
+
+        <div class="w-full bg-gray-50 p-4 rounded-xl space-y-2 border text-xs text-left">
+          <p><strong>Asal Surat:</strong> ${s.asal}</p>
+          <p><strong>No. Surat Resmi:</strong> ${s.noSurat}</p>
+          <p><strong>Diterima Tanggal:</strong> ${s.diterimaTanggal} <span class="text-gray-400">(Dikirim: ${s.dikirimTanggal})</span></p>
+          <p><strong>Sifat:</strong> <span class="px-2 py-0.5 bg-red-100 text-red-800 font-bold rounded">${s.sifat}</span></p>
+          <p><strong>Perihal:</strong> ${s.perihal}</p>
+        </div>
+
+        <div class="w-full bg-maroon-50 p-4 rounded-xl border border-maroon-100 text-xs text-left">
+          <p class="font-bold text-maroon-900 mb-1"><i class="fas fa-gavel"></i> Instruksi Kepala Sekolah:</p>
+          <p class="italic text-gray-800">"${s.catatanKepsek || 'Laksanakan sesuai tugas pokok dan fungsi.'}"</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2 w-full pt-3">
+          <button onclick="viewFileSimulation('${s.id}', 'masuk')" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow transition-all flex items-center justify-center gap-1.5">
+            <i class="fas fa-eye"></i> PREVIEW
+          </button>
+          <button onclick="simulateDownloadFile('${s.file.name}')" class="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow transition-all flex items-center justify-center gap-1.5">
+            <i class="fas fa-download"></i> UNDUH
+          </button>
+          <button onclick="printSuratDetail('${s.id}', 'masuk')" class="flex-1 py-2 bg-maroon-800 hover:bg-maroon-900 text-white font-bold text-xs rounded-lg shadow transition-all flex items-center justify-center gap-1.5">
+            <i class="fas fa-print"></i> CETAK
+          </button>
+        </div>
+      `;
+    }
+
+    function closeFileModal() {
+      document.getElementById('modal-view-file').classList.add('hidden');
+    }
+
+    function simulateDownloadFile(fileName) {
+      showToast(`Menginisiasi unduhan: ${fileName}`, 'info');
+      
+      // Membuat konten simulasi teks untuk diunduh langsung oleh perangkat client/user
+      const content = `=== DOKUMEN ARSIP DIGITAL ===\n\nNama File:\t${fileName}\nTanggal Unduh:\t${new Date().toLocaleString()}\nInstansi:\tSMKN 1 Pogalan\n\n(Catatan: Ini adalah file arsip salinan dari cloud Google Drive.)`;
+      
+      // Membentuk Blob
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = window.URL.createObjectURL(blob);
+      
+      // Men-trigger tautan unduh (A Element)
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      // Menyesuaikan ekstensi menjadi .txt supaya aman/selalu bisa diunduh device apapun
+      a.download = fileName.includes('.') ? fileName + '.txt' : fileName + '.txt'; 
+      document.body.appendChild(a);
+      a.click();
+      
+      // Cleanup memori cache browser
+      setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        showToast(`File ${fileName} berhasil diunduh ke perangkat Anda!`, 'success');
+      }, 500);
     }
 
     // ---------------------------------------------------------
-    // PRINT PREVIEW GENERATION
+    // FILE HANDLER SIMULATION & EXTRACTION TO CLOUD
     // ---------------------------------------------------------
-    function printSuratDetail(id, type) {
-      const item = type === 'masuk' 
-        ? state.suratMasuk.find(s => s.id === id) 
-        : state.suratKeluar.find(s => s.id === id);
-
-      if (!item) return;
-
-      const printContent = document.getElementById('print-content');
-      printContent.innerHTML = '';
-
-      if (type === 'masuk') {
-        // Render beautiful official disposisi instruction sheet
-        printContent.innerHTML = `
-          <div class="text-center font-bold text-sm uppercase tracking-wider underline mb-4">LEMBAR DISPOSISI KEPALA SEKOLAH</div>
-          
-          <table class="w-full border-collapse border border-gray-800 text-xs text-left mb-6">
-            <tr>
-              <th class="p-3 border border-gray-800 bg-gray-50 w-1/4">No. Agenda (Urut)</th>
-              <td class="p-3 border border-gray-800 font-bold">${item.noAgenda}</td>
-              <th class="p-3 border border-gray-800 bg-gray-50 w-1/4">Tanggal Diterima</th>
-              <td class="p-3 border border-gray-800">${item.diterimaTanggal}</td>
-            </tr>
-            <tr>
-              <th class="p-3 border border-gray-800 bg-gray-50">Sifat Surat</th>
-              <td class="p-3 border border-gray-800 font-bold ${item.sifat === 'Penting' ? 'text-red-700' : ''}">${item.sifat}</td>
-              <th class="p-3 border border-gray-800 bg-gray-50">Tanggal Dikirim</th>
-              <td class="p-3 border border-gray-800 font-mono">${item.dikirimTanggal}</td>
-            </tr>
-            <tr>
-              <th class="p-3 border border-gray-800 bg-gray-50">Asal Surat</th>
-              <td class="p-3 border border-gray-800 font-semibold" colspan="3">${item.asal}</td>
-            </tr>
-            <tr>
-              <th class="p-3 border border-gray-800 bg-gray-50">No. Surat Resmi</th>
+    function handleFileSimulation(input) {
               <td class="p-3 border border-gray-800" colspan="3">${item.noSurat}</td>
             </tr>
             <tr>
@@ -2559,62 +2577,62 @@
       const printContent = document.getElementById('print-content');
       printContent.innerHTML = `
         <div class="text-center font-bold text-sm uppercase tracking-wider underline mb-4">LAPORAN BUKU AGENDA SURAT ${type === 'masuk' ? 'MASUK' : 'KELUAR'}</div>
-        <p class="text-xs text-gray-600 mb-4 text-center">Periode Laporan: ${start || 'Awal'} s.d. ${end || 'Akhir'}</p>
+        state.selectedFileBase64 = e.target.result.split(',')[1];
+        };
+        reader.readAsDataURL(file);
+      }
+    }
 
-        <table class="w-full border-collapse border border-gray-800 text-[10px] text-left">
-          <thead>
-            <tr class="bg-gray-100 font-bold uppercase">
-              <th class="p-2 border border-gray-800 text-center">No</th>
-              <th class="p-2 border border-gray-800">No. Agenda & Kode</th>
-              <th class="p-2 border border-gray-800">No. Surat & Tgl</th>
-              <th class="p-2 border border-gray-800">Asal / Tujuan</th>
-              <th class="p-2 border border-gray-800">Perihal</th>
-              <th class="p-2 border border-gray-800">${type === 'masuk' ? 'Tujuan Disposisi' : 'Sifat'}</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${list.map((item, idx) => `
-              <tr>
-                <td class="p-2 border border-gray-800 text-center">${idx + 1}</td>
-                <td class="p-2 border border-gray-800 font-bold">${type === 'masuk' ? 'No. ' : ''}${item.noAgenda}<br><span class="text-[9px] text-gray-400 font-normal">${item.kode}</span></td>
-                <td class="p-2 border border-gray-800 font-mono">${item.noSurat}<br><span class="text-[9px] text-gray-500 font-sans">${item.diterimaTanggal}</span></td>
-                <td class="p-2 border border-gray-800 font-semibold">${item.asal}</td>
-                <td class="p-2 border border-gray-800">${item.perihal}</td>
-                <td class="p-2 border border-gray-800">
-                  ${type === 'masuk' 
-                    ? (item.disposisiKepsek && item.disposisiKepsek.length > 0 ? item.disposisiKepsek.join(', ') : 'Belum Didisposisi')
-                    : (item.sifat || 'Biasa')}
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
+    function viewFileSimulation(id, typeCategory) {
+      const item = typeCategory === 'masuk' ? state.suratMasuk.find(s => s.id === id) : state.suratKeluar.find(s => s.id === id);
+      if (!item) return;
+      
+      const name = item.file.name || 'document.pdf';
+      const type = item.file.type || 'application/pdf';
 
-        <div class="flex justify-between items-center text-xs text-center mt-12 pt-6">
-          <div>
-            <p>Dibuat Oleh,</p>
-            <p>Staf Administrasi TU</p>
-            <br><br>
-            <p class="font-bold underline">_________________________</p>
+      const viewer = document.getElementById('file-viewer-content');
+      document.getElementById('modal-view-file').classList.remove('hidden');
+
+      viewer.innerHTML = '';
+
+      let previewCard = '';
+      if (type.includes('image') || name.toLowerCase().endsWith('.jpg') || name.toLowerCase().endsWith('.jpeg') || name.toLowerCase().endsWith('.png')) {
+        previewCard = `
+          <h4 class="font-bold text-maroon-950 text-sm mb-2 truncate max-w-sm"><i class="fas fa-image text-emerald-600"></i> ${name}</h4>
+          <div class="w-full h-64 bg-gradient-to-br from-maroon-50 to-gray-100 rounded-lg border border-dashed border-gray-300 flex flex-col items-center justify-center relative overflow-hidden">
+            <i class="fas fa-file-image text-5xl text-maroon-800 mb-2"></i>
+            <p class="text-xs font-bold text-gray-600">Representasi Tampilan Gambar Berkas</p>
+            <p class="text-[10px] text-gray-400 mt-1">SMK Negeri 1 Pogalan - Arsip Digital</p>
           </div>
-          <div>
-            <p>Pogalan, ${new Date().toISOString().split('T')[0]}</p>
-            <p>Mengetahui,</p>
-            <p>Kepala SMKN 1 Pogalan,</p>
-            <br><br>
-            <p class="font-extrabold text-maroon-950">Rachmad Effendi TS., M.Pd.</p>
-            <p class="text-[10px] text-gray-500 font-semibold">NIP. 19710825 199702 1 002</p>
+        `;
+      } else {
+        previewCard = `
+          <h4 class="font-bold text-maroon-950 text-sm mb-2 truncate max-w-sm"><i class="fas fa-file-pdf text-red-600"></i> ${name}</h4>
+          <div class="w-full h-64 bg-gray-50 border border-gray-200 rounded-lg p-6 flex flex-col items-center justify-center text-center">
+            <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-3">
+              <i class="fas fa-file-pdf text-3xl"></i>
+            </div>
+            <p class="text-sm font-bold text-gray-800">Simulasi Dokumen PDF</p>
+            <p class="text-xs text-gray-500 mt-1">Gunakan tombol unduh di bawah untuk mencetak atau melihat file asli secara lokal.</p>
           </div>
+        `;
+      }
+
+      viewer.innerHTML = `
+        ${previewCard}
+        <div class="grid grid-cols-2 gap-2 w-full mt-4">
+          <button onclick="simulateDownloadFile('${name}')" class="py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg shadow transition-colors flex items-center justify-center gap-1.5">
+            <i class="fas fa-download"></i> UNDUH BERKAS
+          </button>
+          <button onclick="printSuratDetail('${id}', '${typeCategory}')" class="py-2.5 bg-maroon-800 hover:bg-maroon-900 text-white font-bold text-xs rounded-lg shadow transition-colors flex items-center justify-center gap-1.5">
+            <i class="fas fa-print"></i> CETAK DOKUMEN
+          </button>
         </div>
       `;
-
-      document.getElementById('modal-print').classList.remove('hidden');
     }
 
-    function closePrintModal() {
-      document.getElementById('modal-print').classList.add('hidden');
-    }
-
+    // ---------------------------------------------------------
+    // ADMIN: TAB SYSTEM & COUNTERS
     // ---------------------------------------------------------
     // CUSTOM TOAST NOTIFICATION
     // ---------------------------------------------------------
